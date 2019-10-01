@@ -1,53 +1,47 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const AuthLibrary = require('./libraries/auth');
-require('dotenv/config');
-
-const app = express();
 const port = 8080;
+const express = require('express');
+const expressApp = express();
+
+const cors = require('cors');
+expressApp.use(cors({
+  origin:['http://localhost:4200','http://127.0.01:4200'],
+  credentials:true
+}));
+
+db = require("./libraries/db");
 
 
-app.use((req, res, next) => {
-console.log(req.method + ' ' + req.path + ' ' + '-' + ' ' + req.ip);
-next();
-})
+const bodyParser = require('body-parser');
+expressApp.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json());        // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
 
-//ROUTES
-app.get('/', (req, res) => {
-    res.send('we are on home');
+//import route files
+customersRoutes    = require("./routes/customers");
+categoriesRoutes   = require("./routes/categories");
+attributesRoutes   = require("./routes/attributes");
+productsRoutes     = require("./routes/products");
+customerRoutes     = require("./routes/customer");
+ordersRoutes       = require("./routes/orders");
+shoppingcartRoutes = require("./routes/shoppingcart");
+taxRoutes          = require("./routes/tax");
+shippingRoutes     = require("./routes/shipping");
+stripeRoutes       = require("./routes/stripe");
+
+//authentication routes
+expressApp.use('/customers', customersRoutes);
+
+//authentication routes
+expressApp.use('/categories', categoriesRoutes);
+expressApp.use('/attributes', attributesRoutes);
+expressApp.use('/products', productsRoutes);
+expressApp.use('/customer', customerRoutes);
+expressApp.use('/orders', ordersRoutes);
+expressApp.use('/shoppingcart', shoppingcartRoutes);
+expressApp.use('/tax', taxRoutes);
+expressApp.use('/shipping', shippingRoutes);
+expressApp.use('/stripe', stripeRoutes);
+
+//init the server
+expressApp.listen(port, () => {
+    console.log(`listening on port ${port}`);
 });
-
-
-//import routes
-const authRoute = require('./routes/auth');
-const schoolRoute = require('./routes/school');
-
-//use routes
-app.use('/auth',authRoute);
-app.use('/school',AuthLibrary.verify_token,schoolRoute);
-// app.use('/school',schoolRoute);
-
-//DATABASE
-mongoose.connect(
-    process.env.DB_CONNECTION,
-    { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true },
-    () => {
-        console.log('connected to DB');
-    }
-);
-mongoose.connection.on('error', (err) => {console.log(err)});
-
-
-// app.listen(port);
-var server = app.listen(port, function () {
-    var host = server.address().address
-    var port = server.address().port
-    
-    console.log("Example app listening at http://%s:%s", host, port)
- });

@@ -1,4 +1,4 @@
-const  express = require('express');
+const express = require('express');
 const router = express.Router();
 const UserModel = require("../models/users");
 const AccessTokenModel = require("../models/access_tokens");
@@ -8,8 +8,6 @@ require('dotenv/config');
 const nodemailer = require('nodemailer');
 var http = require('http');
 var url = require('url') ;
-
-
 
 
 //USER REGISTRATIION
@@ -162,8 +160,8 @@ router.post('/login',(req, res) => {
 
 //verify email adress
 router.get('/email_verification/:username/:verification_code',(req, res) => {
-    var verification_code = req.params.verification_code
-    var username = req.params.username
+    var verification_code = req.params.verification_code;
+    var username = req.params.username;
 
     if(verification_code && username){
         UserModel.findOne({username:username}, (err,user) => {
