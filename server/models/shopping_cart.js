@@ -1,9 +1,15 @@
+const uuid = require('uuid/v4'); // ES5
+
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const shopping_cart = sequelize.define('shopping_cart', {
     item_id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        type: DataTypes.INTEGER
+      // type: DataTypes.UUID,
+      // defaultValue: uuid()
     },
     cart_id: DataTypes.STRING(32),
     product_id: DataTypes.INTEGER,
@@ -15,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
-  }, {});
+  }, {
+    freezeTableName: true,
+    timestamps: false
+  });
   shopping_cart.associate = function(models) {
     shopping_cart.belongsTo(models.product, {foreignKey: 'product_id', as: 'product'});
   };

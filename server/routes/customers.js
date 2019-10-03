@@ -1,104 +1,107 @@
 const express = require('express');
 const router = express.Router();
+const nodemailer = require('nodemailer');
+const models = require("../models");
 
 // Registration
 router.post('/',(req, res) => {
-    var hostname = req.headers.host; // hostname = 'localhost:8080'
-    var pathname = url.parse(req.url).pathname; // pathname = '/MyApp'
 
-    username = req.body.username;
+    hostname = req.headers.host; // hostname = 'localhost:8080'
     password = req.body.password;
     email = req.body.email;
+    name = req.body.name;
+    
 
-    UserModel.find({email:email,username:username}, (err,users) => {
-        if(err){
-            console.log(err)
-            return;
-        }
-        console.log(users)
-        if (users.length == 0){
+    models.customer.findAll({
+        where: {email:email,}
+    })
+    .then((result) => {
+        
+        console.log("\n\n\n\n\n\n result \n", result);
+        if (result.length == 0){
+                var date = new Date();
+                date.setDate(date.getDate()+2);
+                models.customer.create({
+                    email: email,
+                    password: password,
+                    name: name,
+                })
+                .then(data => {
 
-            var date = new Date();
-            date.setDate(date.getDate()+2);
+                    // send verification email
+                    var transporter = nodemailer.createTransport({
+                        service: 'gmail',
+                        auth: {
+                        user: 'kidumbuyoschool@gmail.com',
+                        pass: '1123581321aA.'
+                        }
+                    });
+                    var mailOptions = {
+                        from: 'kidumbuyoschool@gmail.com',
+                        to: email,
+                        subject: 'Confirmation code for kidumbuyo school',
+                        html: 'To verify your e-mail address, click the link below:<br><a href="' + hostname + 'auth/email_verification/' + email + '/' + hostname + '">Verify your email </a>'
+                    };
+                    transporter.sendMail(mailOptions, function(error, info){
+                        if (error) {
+                        console.log(error);
+                        } else {
+                        console.log('Email sent: ' + info.response);
+                        }
+                    });
 
-            user = new UserModel({
-                username: username,
-                email: email,
-                password: password,
-                email_verified: {
-                    token: token,
-                    expire_date: date,
-                    status: false,
-                    date: Date.now()
-                },
-            });
-            user.save()
-            .then(data => {
-                // send verification email
-                res.json(data);
-            })
-            .catch(error => {
-                res.status(500).json({message: error});
-            });
+                    res.json(data);
 
-            // send verification email
-            var transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: 'kidumbuyoschool@gmail.com',
-                  pass: '1123581321aA.'
-                }
-              });
-
-              var mailOptions = {
-                from: 'kidumbuyoschool@gmail.com',
-                to: email,
-                subject: 'Confirmation code for kidumbuyo school',
-                html: 'To verify your e-mail address, click the link below:<br><a href="' + hostname + 'auth/email_verification/' + username + '/' + hostname + '">Verify your email </a>'
-              };
-              
-              transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log('Email sent: ' + info.response);
-                }
-              });
-            
-        }else{
-            res.status(500).json({message: "user already exists"});
-        }
+                })
+                .catch(error => {
+                    res.status(500).json({message: "Error adding user." + error});
+                });
+            }else{
+                res.status(500).json({message: "user already exists"});
+            }
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({message: error});
     });
 });
 
 // login
 router.post('/login',(req, res) => {
-    username = req.body.username;
+
+    email = req.body.email;
     password = req.body.password;
 
-    if(username && password){
-        UserModel.findOne({$or: [{username: username},{email: username}]}, (err, user) => {
-            if(err){
-                res.status(500).json({message: "user already exists"});
-                return;
-            }
+    if(email && password){
 
-            if(!user){
+        models.customer.findAll({
+            where: {email: email},
+            limit: 1
+        })
+        .then((customers) => {
+
+
+            if(!customers.length){
                 res.status(500).json({message: "user not found"});
                 return;
             }
 
+            customer = customers[0];
+
+            console.log(customers);
+
             // verify password
-            user.comparePassword(password, (err, isMatch) => {
+            customer.comparePassword(password, (err, isMatch) => {
                 if(err){
-                    res.status(500).json({message: "user already exists"});
+                    res.status(500).json({message: "user password did not match"});
                     return;
                 }
+
+                console.log(isMatch)
 
                 if(isMatch){
                     // authentication success
                     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-                    
                     jwt.sign({user: user}, process.env.DB_CONNECTION, (err,token) => {
 
                         if (err) {
@@ -119,12 +122,14 @@ router.post('/login',(req, res) => {
                         })
                         .catch(err => {
                             res.status(500).json({message: err});
-                        })
-                    })
+                        });
+                    });
                 }else{
-                    res.status(500).json({message: "user already exists"});
+                    res.status(500).json({message: "Passwords don't match"});
                 }
             });
+        }).catch((err) => {
+            res.status(500).json({message: "error getting user: " + err});
         });
     }else{
         res.status(500).json({message: "please post username and password"});
@@ -132,17 +137,17 @@ router.post('/login',(req, res) => {
 });
 
 //facebook
-router.post('/facebook',(req, res) => {
+router.post('/facebook', (req, res ) => {
 
 });
 
 // address
-router.put('/address',(req, res) => {
+router.put('/address', (req, res ) => {
 
 });
 
 //credit card
-router.put('/creditCard',(req, res) => {
+router.put('/creditCard', (req, res ) => {
 
 });
 

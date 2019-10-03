@@ -8,7 +8,7 @@ expressApp.use(cors({
   credentials:true
 }));
 
-db = require("./libraries/db");
+const db = require("./models");
 
 
 const bodyParser = require('body-parser');
@@ -42,6 +42,15 @@ expressApp.use('/shipping', shippingRoutes);
 expressApp.use('/stripe', stripeRoutes);
 
 //init the server
-expressApp.listen(port, () => {
+
+
+db.sequelize.sync().then(() => {
+  console.log('Database connection successfull');
+  expressApp.listen(port, () => {
     console.log(`listening on port ${port}`);
+  });
+}).catch(err => {
+  console.error('Unable to sync to the database:\n\n', err);
 });
+
+module.exports = expressApp;
