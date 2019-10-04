@@ -32,26 +32,25 @@ module.exports = (sequelize, DataTypes) => {
  
   });
 
-  customer.prototype.comparePassword = function(password, callback) {
-    bcrypt.compare(password, this.password, function(err, res) {
-      if (err) {
-        return callback(err);
-      }
-      callback(null, res);
-    });
-  };
-
   customer.associate = function(models) {
     customer.belongsTo(models.shipping_region, {foreignKey: 'shipping_region_id', as: 'shipping_region'});
   };
 
-  customer.beforeCreate((customer, options, cb ) => {
-    return new Promise ((resolve, reject) => {
-      bcrypt.hash(customer.password, 10, function(err, hash) {
-        customer.password = hash
-        return resolve(customer, options);
-      });
-    })
+  customer.prototype.comparePassword = function(password, callback) {
+    res = bcrypt.compareSync(password, this.password);
+    callback(null, res);
+  };
+
+  
+
+  customer.beforeCreate((customer, options ) => {
+    return new Promise ((resolve, reject ) => {
+
+      salt = bcrypt.genSaltSync(10);
+      customer.password = bcrypt.hashSync(customer.password, salt)
+      return resolve(customer, options);
+      
+    });
   });
 
 

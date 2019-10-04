@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const models = require("../models");
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+
 
 // Registration
 router.post('/',(req, res) => {
@@ -80,15 +83,11 @@ router.post('/login',(req, res) => {
         })
         .then((customers) => {
 
-
             if(!customers.length){
                 res.status(500).json({message: "user not found"});
                 return;
             }
-
             customer = customers[0];
-
-            console.log(customers);
 
             // verify password
             customer.comparePassword(password, (err, isMatch) => {
@@ -97,32 +96,37 @@ router.post('/login',(req, res) => {
                     return;
                 }
 
-                console.log(isMatch)
+                console.log(isMatch);
 
                 if(isMatch){
                     // authentication success
+
+
                     var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-                    jwt.sign({user: user}, process.env.DB_CONNECTION, (err,token) => {
+                    jwt.sign({user: customer}, process.env.JWT_SECRET, (err,token) => {
 
                         if (err) {
-                            res.status(500).json({message: err});
+                            res.status(500).json({message: "Error signing in in jwt " + err});
                             return;
                         }
 
-                        accessToken = new AccessTokenModel({
-                            access_token: token,
-                            user_id: user.username,
-                            time: Date.now(),
-                            ip_adress: ip,
-                        });
+                        // accessToken = new AccessTokenModel({
+                        //     access_token: token,
+                        //     user_id: user.username,
+                        //     time: Date.now(),
+                        //     ip_adress: ip,
+                        // });
 
-                        accessToken.save()
-                        .then(data => {
-                            res.json(data);
-                        })
-                        .catch(err => {
-                            res.status(500).json({message: err});
-                        });
+                        // accessToken.save()
+                        // .then(data => {
+                        //     res.json(data);
+                        // })
+                        // .catch(err => {
+                        //     res.status(500).json({message: err});
+                        // });
+
+                        res.json({token:token,customer:customer});
+
                     });
                 }else{
                     res.status(500).json({message: "Passwords don't match"});

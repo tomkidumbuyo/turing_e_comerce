@@ -6,25 +6,25 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 require('dotenv/config');
 
-function verify_token (req,res,next){
+function verify_token (req,res){
   try {
     if(req.headers.authorization !== undefined){
 
       const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = jwt.verify(token, process.env.DB_CONNECTION);
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const userId = decodedToken.userId;
 
-      AccessTokenModel.findOne({access_token:token},(err,atoken)=>{
-        if (err){
-          throw 'Invalid access token';
-        }
-        if (req.body.userId !== userId) {
-          throw 'Invalid user ID';
-        } else {
-          next();
-        }
+      models.customer.findAll({
+        where: {customer_id: userId },
+        limit: 1
       })
+      .then((customers) => {
 
+        res.user = customers[0];
+        console.log(res.user);
+        next();
+
+      });
     }else{
       throw 'Please add an authorization token on your header.';
     }
@@ -34,6 +34,10 @@ function verify_token (req,res,next){
       error: new Error('Invalid request!')
     });
   }
+}
+
+function is_loggeg_in(req,res,next){
+
 }
 
 function send_verification_email (username){

@@ -13,5 +13,6 @@ module.exports = (sequelize, DataTypes) => {
     product_category.belongsTo(models.category, {foreignKey: 'category_id', as: 'category'});
 
   };
+  product_category.removeAttribute('id');
   return product_category;
 };
