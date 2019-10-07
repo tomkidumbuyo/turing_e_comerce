@@ -41,26 +41,14 @@ router.get('/values/:attribute_id',(req, res) => {
 });
 
 router.get('/inProduct/:product_id',(req, res) => {
+
     models.product_attribute.findAll({
-        where:{product_id: req.params.product_id}
+        where:{product_id: req.params.product_id},
+        include: [{model: models.attribute_value, as: "attribute_value"}]
     })
     .then((product_attributes) => {
 
-        const attributes = product_attributes.map( async function(element){
-            console.log(element);
-            models.attribute_value.findAll({
-                where:{attribute_value_id: element.dataValues.attribute_value_id},
-            })
-            .then((attributes) => {
-                if(attributes.length){
-                    console.log(attributes)
-                    return attributes[0];
-                }
-            })
-            .catch(err => {
-                console.log(err)
-            });
-        });
+        const attributes = product_attributes.map( element => element.attribute_value );
         res.json(attributes);
     })
     .catch(err => {
