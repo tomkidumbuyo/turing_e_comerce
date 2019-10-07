@@ -53,12 +53,14 @@ router.get('/inProduct/:product_id',(req, res) => {
             })
             .then((attributes) => {
                 if(attributes.length){
-                    console.log(attributes)
-                    return attributes[0];
+                    return attributes[0].dataValues;
+                }else{
+                    return false;
                 }
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
+                return false;
             });
         });
         res.json(attributes);

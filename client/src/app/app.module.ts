@@ -3,29 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core/core.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from  '@angular/common/http';
-
-import { AppMaterialModule } from './app-material/app-material.module';
-import { AuthModule } from './auth/auth.module';
-import { AdminModule } from './admin/admin.module';
-import { ParentModule } from './parent/parent.module';
+import { ProductsComponent } from './products/products.component';
+import { SearchComponent } from './search/search.component';
+import { SingleProductComponent } from './single-product/single-product.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductsComponent,
+    SearchComponent,
+    SingleProductComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    CoreModule,
-    AppMaterialModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    AuthModule,
-    AdminModule,
-    ParentModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
