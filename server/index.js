@@ -18,6 +18,7 @@ expressApp.use(bodyParser.urlencoded({ extended: true }));
 //import route files
 customersRoutes    = require("./routes/customers");
 categoriesRoutes   = require("./routes/categories");
+departmentsRoutes  = require("./routes/departments");
 attributesRoutes   = require("./routes/attributes");
 productsRoutes     = require("./routes/products");
 customerRoutes     = require("./routes/customer");
@@ -32,6 +33,7 @@ expressApp.use('/customers', customersRoutes);
 
 //authentication routes
 expressApp.use('/categories', categoriesRoutes);
+expressApp.use('/departments', departmentsRoutes);
 expressApp.use('/attributes', attributesRoutes);
 expressApp.use('/products', productsRoutes);
 expressApp.use('/customer', customerRoutes);
