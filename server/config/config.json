@@ -1,26 +1,29 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "root",
     "database": "ecommerce",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "port": 8889,
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": "",
+    "password": "root",
     "database": "ecommerce",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "port": 8889,
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": "",
+    "password": "toot",
     "database": "ecommerce",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "port": 8889,
     "operatorsAliases": false
   }
 }

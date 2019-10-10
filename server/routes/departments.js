@@ -4,7 +4,7 @@ const models = require("../models");
 
 router.get('/',(req, res) => {
     models.department.findAll()
-    .then((departments) => {
+    .then(( departments ) => {
         res.json(departments);
     })
     .catch(err => {
@@ -17,7 +17,7 @@ router.get('/:department_id',(req, res) => {
         where: {department_id: req.params.department_id},
         limit: 1
     })
-    .then((departments) => {
+    .then(( departments ) => {
         if(departments.length){
             res.json(departments[0]);
         }else{

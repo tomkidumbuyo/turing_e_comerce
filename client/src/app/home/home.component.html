@@ -183,85 +183,8 @@
       </div>
       <!-- End Title -->
 
-      <div class="row mb-5">
-        <div class="col-md-4 mb-5 mb-md-0">
-          <!-- Card -->
-          <div class="card d-block">
-            <div class="card-body d-flex align-items-center p-0">
-              <div class="w-65 border-right">
-                <img class="img-fluid" src="../../assets/img/380x400/img3.jpg" alt="Image Description">
-              </div>
-              <div class="w-35">
-                <div class="border-bottom">
-                  <img class="img-fluid" src="../../assets/img/380x360/img32.jpg" alt="Image Description">
-                </div>
-                <img class="img-fluid" src="../../assets/img/380x360/img33.jpg" alt="Image Description">
-              </div>
-            </div>
-            <div class="card-footer text-center py-4">
-              <h3 class="h5 mb-1">T-shirts</h3>
-              <span class="d-block text-muted font-size-1 mb-3">Starting from $29.99</span>
-              <a class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover px-5" href="classic.html#">View All T-shirts</a>
-            </div>
-          </div>
-          <!-- End Card -->
-        </div>
 
-        <div class="col-md-4 mb-5 mb-md-0">
-          <!-- Card -->
-          <div class="card d-block">
-            <div class="card-body d-flex align-items-center p-0">
-              <div class="w-65 border-right">
-                <img class="img-fluid" src="../../assets/img/380x400/img4.jpg" alt="Image Description">
-              </div>
-              <div class="w-35">
-                <div class="border-bottom">
-                  <img class="img-fluid" src="../../assets/img/380x360/img34.jpg" alt="Image Description">
-                </div>
-                <img class="img-fluid" src="../../assets/img/380x360/img35.jpg" alt="Image Description">
-              </div>
-            </div>
-            <div class="card-footer text-center py-4">
-              <h3 class="h5 mb-1">Tech covers</h3>
-              <span class="d-block text-muted font-size-1 mb-3">Starting from $399.99</span>
-              <a class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover px-5" href="classic.html#">View All Tech covers</a>
-            </div>
-          </div>
-          <!-- End Card -->
-        </div>
 
-        <div class="col-md-4">
-          <!-- Card -->
-          <div class="card d-block">
-            <div class="card-body d-flex align-items-center p-0">
-              <div class="w-65 border-right">
-                <img class="img-fluid" src="../../assets/img/380x400/img5.jpg" alt="Image Description">
-              </div>
-              <div class="w-35">
-                <div class="border-bottom">
-                  <img class="img-fluid" src="../../assets/img/380x360/img36.jpg" alt="Image Description">
-                </div>
-                <img class="img-fluid" src="../../assets/img/380x360/img37.jpg" alt="Image Description">
-              </div>
-            </div>
-            <div class="card-footer text-center py-4">
-              <h3 class="h5 mb-1">Caps</h3>
-              <span class="d-block text-muted font-size-1 mb-3">Starting from $13.99</span>
-              <a class="btn btn-sm btn-outline-primary btn-pill transition-3d-hover px-5" href="classic.html#">View All Caps</a>
-            </div>
-          </div>
-          <!-- End Card -->
-        </div>
-      </div>
-
-      <div class="text-center">
-        <p class="small">Limited time only, while stocks last.</p>
-      </div>
-    </div>
-    <!-- End Categories Section -->
-
-    <!-- Promo Section -->
-    <div class="container">
       <div class="row">
         <div class="col-lg-6 mb-5 mb-lg-0">
           <!-- Promo -->
@@ -334,7 +257,8 @@
 
       <!-- Products -->
       <div class="row mx-n2 mx-sm-n3 mb-7">
-        <div class="col-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5">
+        
+        <div *ngFor="let product of products" class="col-6 col-lg-3 px-2 px-sm-3 mb-3 mb-sm-5">
           <!-- Product -->
           <div class="card text-center h-100">
             <div class="position-relative">
@@ -352,12 +276,12 @@
 
             <div class="card-body pt-4 px-4 pb-0">
               <div class="mb-2">
-                <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="classic.html#">Accessories</a>
+                <a class="d-inline-block text-secondary small font-weight-medium mb-1" href="classic.html#">{{product.name}}</a>
                 <h3 class="font-size-1 font-weight-normal">
-                  <a class="text-secondary" href="single-product.html">Herschel backpack in dark blue</a>
+                  <a class="text-secondary" href="single-product.html">{{product.description | slice:0:30}}</a>
                 </h3>
                 <div class="d-block font-size-1">
-                  <span class="font-weight-medium">$56.99</span>
+                  <span class="font-weight-medium">${{product.price}}</span>
                 </div>
               </div>
             </div>
@@ -704,71 +628,5 @@
     </div>
     <!-- End Products Section -->
 
-    <!-- Subscribe Section -->
-    <div class="bg-light">
-      <div class="container space-2">
-        <div class="row justify-content-center">
-          <div class="col-md-9 col-lg-6">
-            <!-- Title -->
-            <div class="text-center mb-4">
-              <h2 class="h1 font-weight-medium">Stay in the know</h2>
-              <p>Get special offers on the latest developments from Front.</p>
-            </div>
-            <!-- End Title -->
-
-            <!-- Subscribe Form -->
-            <form class="js-validate js-form-message w-lg-85 mx-lg-auto">
-              <label class="sr-only" for="subscribeSrEmail">Email address</label>
-              <div class="input-group input-group-pill">
-                <input type="email" class="form-control" name="email" id="subscribeSrEmail" placeholder="Email address" aria-label="Email address" aria-describedby="subscribeButton" required
-                       data-msg="Please enter a valid email address.">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-primary btn-sm-wide" id="subscribeButton">Join</button>
-                </div>
-              </div>
-            </form>
-            <!-- End Subscribe Form -->
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Subscribe Section -->
-
-    <!-- Clients Section -->
-    <div class="container space-2">
-      <div class="row justify-content-between text-center">
-        <div class="col-4 col-lg-2 mb-5 mb-lg-0">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/hollister.svg" alt="Image Description">
-          </div>
-        </div>
-        <div class="col-4 col-lg-2 mb-5 mb-lg-0">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/levis.svg" alt="Image Description">
-          </div>
-        </div>
-        <div class="col-4 col-lg-2 mb-5 mb-lg-0">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/new-balance.svg" alt="Image Description">
-          </div>
-        </div>
-        <div class="col-4 col-lg-2">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/puma.svg" alt="Image Description">
-          </div>
-        </div>
-        <div class="col-4 col-lg-2">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/nike.svg" alt="Image Description">
-          </div>
-        </div>
-        <div class="col-4 col-lg-2">
-          <div class="mx-4">
-            <img class="u-clients" src="../../assets/svg/clients-logo/tnf.svg" alt="Image Description">
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- End Clients Section -->
   </main>
   <!-- ========== END MAIN CONTENT ========== -->

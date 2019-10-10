@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RestApiService } from 'src/app/rest-api.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  departments = [];
+
+  constructor(
+    public restApi: RestApiService,
+    public router: Router
+  ) { }
 
   ngOnInit() {
+    this.restApi.get('departments').subscribe((data) => {
+      console.log(data);
+      this.departments = data;
+    });
   }
 
 }
