@@ -22,7 +22,7 @@ router.get('/search',(req, res) => {
 
 });
 
-router.get('/:product_id/:type',(req, res) => {
+router.get('/:product_id',(req, res) => {
 
 });
 

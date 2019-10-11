@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/rest-api.service';
 
@@ -21,6 +21,10 @@ export class HeaderComponent implements OnInit {
       console.log(data);
       this.departments = data;
     });
+  }
+
+  search(form) {
+    console.log(form)
   }
 
 }

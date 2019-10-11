@@ -39,7 +39,7 @@ const routes: Routes = [{
   data: { title: 'Product Details' }
 },
 { path: '',
-  redirectTo: '/home',
+  redirectTo: '/products',
   pathMatch: 'full'
 },
 { 

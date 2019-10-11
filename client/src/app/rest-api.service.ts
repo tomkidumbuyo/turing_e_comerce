@@ -34,7 +34,7 @@ export class RestApiService {
 
   // HttpClient API get() method
   get(url) {
-    return this.http.get(this.apiURL + url)
+    return this.http.get<any>(this.apiURL + url)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -43,7 +43,7 @@ export class RestApiService {
 
   // HttpClient API post() method
   post(url, data) {
-    return this.http.post(this.apiURL + url, JSON.stringify(data), this.httpOptions)
+    return this.http.post<any>(this.apiURL + url, JSON.stringify(data), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -52,7 +52,7 @@ export class RestApiService {
 
   // HttpClient API put() method
   put(url, data) {
-    return this.http.put(this.apiURL + url, JSON.stringify(data), this.httpOptions)
+    return this.http.put<any>(this.apiURL + url, JSON.stringify(data), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -61,7 +61,7 @@ export class RestApiService {
 
   // HttpClient API delete() method
   delete(url) {
-    return this.http.delete(this.apiURL + url, this.httpOptions)
+    return this.http.delete<any>(this.apiURL + url, this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

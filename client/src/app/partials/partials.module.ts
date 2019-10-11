@@ -1,5 +1,7 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 
 import { PartialsRoutingModule } from './partials-routing.module';
@@ -11,7 +13,9 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [HeaderComponent, FooterComponent],
   imports: [
     CommonModule,
-    PartialsRoutingModule
+    PartialsRoutingModule,
+    BrowserModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
