@@ -15,15 +15,14 @@
                    data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-inner u-slick__arrow-inner--left ml-3"
                    data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-inner u-slick__arrow-inner--right mr-3"
                    data-nav-for="#heroSliderNav">
+                   
                 <div class="js-slide">
-                  <img class="img-fluid w-100 rounded" src="../../assets/img/600x600/img12.jpg" alt="Image Description">
+                  <img class="img-fluid w-100 rounded" src="../../assets/img/product_images/{{product.image}}" alt="Image Description">
                 </div>
                 <div class="js-slide">
-                  <img class="img-fluid w-100 rounded" src="../../assets/img/600x600/img13.jpg" alt="Image Description">
+                  <img class="img-fluid w-100 rounded" src="../../assets/img/product_images/{{product.image_2}}" alt="Image Description">
                 </div>
-                <div class="js-slide">
-                  <img class="img-fluid w-100 rounded" src="../../assets/img/600x600/img14.jpg" alt="Image Description">
-                </div>
+                
               </div>
               <!-- End Main Slider -->
 
@@ -43,19 +42,15 @@
                      data-nav-for="#heroSlider">
                   <div class="js-slide p-1">
                     <a class="js-slick-thumb-progress position-relative d-block u-avatar border rounded-circle p-1" href="javascript:;">
-                      <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img16.jpg" alt="Image Description">
+                      <img class="img-fluid rounded-circle" src="../../assets/img/product_images/{{product.image_2}}" alt="Image Description">
                     </a>
                   </div>
                   <div class="js-slide p-1">
                     <a class="js-slick-thumb-progress position-relative d-block u-avatar border rounded-circle p-1" href="javascript:;">
-                      <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img17.jpg" alt="Image Description">
+                      <img class="img-fluid rounded-circle" src="../../assets/img/product_images/{{product.image_2}}" alt="Image Description">
                     </a>
                   </div>
-                  <div class="js-slide p-1">
-                    <a class="js-slick-thumb-progress position-relative d-block u-avatar border rounded-circle p-1" href="javascript:;">
-                      <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img18.jpg" alt="Image Description">
-                    </a>
-                  </div>
+                  
                 </div>
               </div>
               <!-- End Slider Nav -->
@@ -65,7 +60,7 @@
 
         <!-- Product Description -->
         <div class="col-lg-5">
-          <!-- Rating -->
+          <!-- Rating --
           <div class="d-flex align-items-center small mb-2">
             <div class="text-warning mr-2">
               <small class="fas fa-star"></small>
@@ -83,16 +78,16 @@
 
           <!-- Title -->
           <div class="mb-5">
-            <h1 class="h3 font-weight-medium">New Era 9Forty LA Dodgers adjustable cap in black</h1>
-            <p>American label New Era manufacturing baseball hats for teams since the 1930s.</p>
+            <h1 class="h3 font-weight-medium">{{product.name}}</h1>
+            <p>{{product.description}}</p>
           </div>
           <!-- End Title -->
 
           <!-- Price -->
           <div class="mb-5">
             <h2 class="font-size-1 text-secondary font-weight-medium mb-0">Total price:</h2>
-            <span class="font-size-2 font-weight-medium">$159.99</span>
-            <span class="text-secondary ml-2"><del>$179.99</del></span>
+            <span class="font-size-2 font-weight-medium">{{product.discounted_price > 0 ? product.discounted_price : product.price}}</span>
+            <span class="text-secondary ml-2" [hidden]="product.discounted_price == 0"><del>{{product.price}}</del></span>
           </div>
           <!-- End Price -->
 
@@ -101,13 +96,13 @@
             <div class="js-quantity row align-items-center">
               <div class="col-7">
                 <small class="d-block text-secondary font-weight-medium">Select quantity</small>
-                <input class="js-result form-control h-auto border-0 rounded p-0" type="text" value="1">
+                <input class="js-result form-control h-auto border-0 rounded p-0" type="text" [(ngModel)]="quantity" #ctrl="ngModel">
               </div>
               <div class="col-5 text-right">
-                <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle" href="javascript:;">
+                <a class="js-minus btn btn-icon btn-xs btn-outline-secondary rounded-circle" (click)="rmv_qty()">
                   <small class="fas fa-minus btn-icon__inner"></small>
                 </a>
-                <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle" href="javascript:;">
+                <a class="js-plus btn btn-icon btn-xs btn-outline-secondary rounded-circle" (click)="add_qty()">
                   <small class="fas fa-plus btn-icon__inner"></small>
                 </a>
               </div>
@@ -196,10 +191,10 @@
           <!-- End Accordion -->
 
           <div class="mb-4">
-            <button type="button" class="btn btn-block btn-primary btn-pill transition-3d-hover">Add to Cart</button>
+            <button type="button" class="btn btn-block btn-primary btn-pill transition-3d-hover" (click)="addToCart()">Add to Cart</button>
           </div>
 
-          <!-- Help Link -->
+          <!-- Help Link --
           <div class="media align-items-center">
             <span id="icon4" class="svg-preloader ie-height-48 w-100 max-width-6 mr-2">
               <img class="js-svg-injector" src="../../assets/svg/icons/icon-4.svg" alt="SVG"
@@ -217,7 +212,7 @@
     </div>
     <!-- End Hero Section -->
 
-    <!-- Product Description Section -->
+    <!-- Product Description Section --
     <div class="container space-top-2 space-lg-3">
       <div class="row">
         <div class="col-md-6 mb-5 mb-md-0">
@@ -254,7 +249,7 @@
     </div>
     <!-- End Product Description Section -->
 
-    <!-- Product Review Section -->
+    <!-- Product Review Section --
     <div class="container">
       <div class="row justify-content-lg-between align-items-lg-center">
         <div class="col-lg-5 space-1 space-lg-2">
@@ -681,114 +676,9 @@
     <!-- Review Section -->
     <div id="reviewSection" class="container space-bottom-2 space-bottom-lg-3">
       <div class="row">
-        <div class="col-lg-4 mb-7 mb-lg-0">
-          <div class="border-bottom pb-4 mb-4">
-            <!-- Overall Rating Stats -->
-            <div class="card border-0 bg-primary text-white p-4 mb-3">
-              <div class="d-flex justify-content-center align-items-center">
-                <span class="display-4 font-weight-semi-bold">4.7</span>
-                <div class="ml-3">
-                  <div class="small">
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star"></small>
-                    <small class="fas fa-star"></small>
-                    <small class="far fa-star"></small>
-                  </div>
-                  <span class="font-weight-normal"><strong>287</strong> reviews</span>
-                </div>
-              </div>
-            </div>
-            <!-- End Overall Rating Stats -->
+        
 
-            <h3 class="h4">Rating breakdown</h3>
-
-            <!-- Ratings -->
-            <ul class="list-unstyled">
-              <li class="py-1">
-                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
-                  <div class="col-3">
-                    <span class="text-dark">5 stars</span>
-                  </div>
-                  <div class="col-7">
-                    <div class="progress" style="height: 4px;">
-                      <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="col-2 text-right">
-                    <span class="text-secondary">205</span>
-                  </div>
-                </a>
-              </li>
-              <li class="py-1">
-                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
-                  <div class="col-3">
-                    <span class="text-dark">4 stars</span>
-                  </div>
-                  <div class="col-7">
-                    <div class="progress" style="height: 4px;">
-                      <div class="progress-bar" role="progressbar" style="width: 53%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="col-2 text-right">
-                    <span class="text-secondary">55</span>
-                  </div>
-                </a>
-              </li>
-              <li class="py-1">
-                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
-                  <div class="col-3">
-                    <span class="text-dark">3 stars</span>
-                  </div>
-                  <div class="col-7">
-                    <div class="progress" style="height: 4px;">
-                      <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="col-2 text-right">
-                    <span class="text-secondary">23</span>
-                  </div>
-                </a>
-              </li>
-              <li class="py-1">
-                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
-                  <div class="col-3">
-                    <span class="text-dark">2 stars</span>
-                  </div>
-                  <div class="col-7">
-                    <div class="progress" style="height: 4px;">
-                      <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="col-2 text-right">
-                    <span class="text-secondary">0</span>
-                  </div>
-                </a>
-              </li>
-              <li class="py-1">
-                <a class="row align-items-center mx-gutters-2 font-size-1" href="javascript:;">
-                  <div class="col-3">
-                    <span class="text-dark">1 stars</span>
-                  </div>
-                  <div class="col-7">
-                    <div class="progress" style="height: 4px;">
-                      <div class="progress-bar" role="progressbar" style="width: 1%;" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                  </div>
-                  <div class="col-2 text-right">
-                    <span class="text-secondary">4</span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-            <!-- End Ratings -->
-          </div>
-
-          <span class="d-block display-4 font-weight-medium">77%</span>
-          <p class="small">of customers recommend this product</p>
-        </div>
-
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div class="pl-lg-4">
             <!-- Title -->
             <div class="border-bottom pb-4 mb-4">

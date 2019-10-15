@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/authentication.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public auth: AuthenticationService
+  ) { }
 
   ngOnInit() {
+  }
+
+  login(formData) {
+    console.log(formData)
+    this.auth.login(formData.username,formData.password)
+  }
+
+  register(formData) {
+    console.log(formData)
+    this.auth.register(formData.username,formData.password,formData.name)
+    
   }
 
 }

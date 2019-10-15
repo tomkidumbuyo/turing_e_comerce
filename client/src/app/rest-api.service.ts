@@ -10,9 +10,11 @@ import { retry, catchError } from 'rxjs/operators';
 export class RestApiService {
 
   // Define API
-  apiURL = 'http://localhost:8080/';
+  apiURL = 'http://localhost:7200/';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   /*========================================
     CRUD Methods for consuming RESTful API

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/rest-api.service';
+import { FormGroup } from '@angular/forms';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +22,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     public restApi: RestApiService,
-    public router: Router
+    public router: Router,
+    public cart: CartService,
   ) { 
     // this.form = this.formBuilder.group({
     //   orders: ['']
@@ -47,6 +50,10 @@ export class ProductsComponent implements OnInit {
       console.log(data);
       this.products = data.rows;
     });
+  }
+
+  addToCart(id) {
+    this.cart.addToCart(id)
   }
 
 }

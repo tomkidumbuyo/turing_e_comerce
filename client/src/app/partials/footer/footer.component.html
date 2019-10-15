@@ -269,7 +269,7 @@
           <!-- Content -->
           <div class="js-scrollbar u-sidebar__body">
             <div class="u-sidebar__content u-header-sidebar__content">
-              <form class="js-validate">
+              <form class="js-validate" #login = "ngForm" (ngSubmit) = "login(login.value)">
                 <!-- Login -->
                 <div id="login" data-target-group="idForm">
                   <!-- Title -->
@@ -292,7 +292,8 @@
                         <input type="email" class="form-control" name="email" id="signinEmail" placeholder="Email" aria-label="Email" aria-describedby="signinEmailLabel" required
                                data-msg="Please enter a valid email address."
                                data-error-class="u-has-error"
-                               data-success-class="u-has-success">
+                               data-success-class="u-has-success"
+                               ngModel>
                       </div>
                     </div>
                   </div>
@@ -311,18 +312,19 @@
                         <input type="password" class="form-control" name="password" id="signinPassword" placeholder="Password" aria-label="Password" aria-describedby="signinPasswordLabel" required
                                data-msg="Your password is invalid. Please try again."
                                data-error-class="u-has-error"
-                               data-success-class="u-has-success">
+                               data-success-class="u-has-success"
+                               ngModel>
                       </div>
                     </div>
                   </div>
                   <!-- End Form Group -->
 
-                  <div class="d-flex justify-content-end mb-4">
+                  <!--<div class="d-flex justify-content-end mb-4">
                     <a class="js-animation-link small link-muted" href="javascript:;"
                        data-target="#forgotPassword"
                        data-link-group="idForm"
                        data-animation-in="slideInUp">Forgot Password?</a>
-                  </div>
+                  </div>-->
 
                   <div class="mb-2">
                     <button type="submit" class="btn btn-block btn-sm btn-primary transition-3d-hover">Login</button>
@@ -354,7 +356,8 @@
                   </div>
                   <!-- End Login Buttons -->
                 </div>
-
+            </form>
+            <form class="js-validate" #register="ngForm" (ngSubmit)="onClickSubmit(login.value)">
                 <!-- Signup -->
                 <div id="signup" style="display: none; opacity: 0;" data-target-group="idForm">
                   <!-- Title -->
@@ -377,7 +380,28 @@
                         <input type="email" class="form-control" name="email" id="signupEmail" placeholder="Email" aria-label="Email" aria-describedby="signupEmailLabel" required
                                data-msg="Please enter a valid email address."
                                data-error-class="u-has-error"
-                               data-success-class="u-has-success">
+                               data-success-class="u-has-success"
+                               ngModel>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Input -->
+                  
+                  <!-- Form Group -->
+                  <div class="form-group">
+                    <div class="js-form-message js-focus-state">
+                      <label class="sr-only" for="signupPassword">Full name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="signupPasswordLabel">
+                            <span class="fas fa-lock"></span>
+                          </span>
+                        </div>
+                        <input type="text" class="form-control" name="name" id="signupName" placeholder="Full Name" aria-label="Name" aria-describedby="signupNameLabel" required
+                               data-msg="Your name is invalid. Please try again."
+                               data-error-class="u-has-error"
+                               data-success-class="u-has-success"
+                               ngModel>
                       </div>
                     </div>
                   </div>
@@ -396,30 +420,14 @@
                         <input type="password" class="form-control" name="password" id="signupPassword" placeholder="Password" aria-label="Password" aria-describedby="signupPasswordLabel" required
                                data-msg="Your password is invalid. Please try again."
                                data-error-class="u-has-error"
-                               data-success-class="u-has-success">
+                               data-success-class="u-has-success"
+                               ngModel>
                       </div>
                     </div>
                   </div>
                   <!-- End Input -->
 
-                  <!-- Form Group -->
-                  <div class="form-group">
-                    <div class="js-form-message js-focus-state">
-                      <label class="sr-only" for="signupConfirmPassword">Confirm Password</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <span class="input-group-text" id="signupConfirmPasswordLabel">
-                            <span class="fas fa-key"></span>
-                          </span>
-                        </div>
-                        <input type="password" class="form-control" name="confirmPassword" id="signupConfirmPassword" placeholder="Confirm Password" aria-label="Confirm Password" aria-describedby="signupConfirmPasswordLabel" required
-                               data-msg="Password does not match the confirm password."
-                               data-error-class="u-has-error"
-                               data-success-class="u-has-success">
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End Input -->
+                  
 
                   <div class="mb-2">
                     <button type="submit" class="btn btn-block btn-sm btn-primary transition-3d-hover">Get Started</button>
@@ -452,7 +460,8 @@
                   <!-- End Login Buttons -->
                 </div>
                 <!-- End Signup -->
-
+            </form>
+            <form>
                 <!-- Forgot Password -->
                 <div id="forgotPassword" style="display: none; opacity: 0;" data-target-group="idForm">
                   <!-- Title -->

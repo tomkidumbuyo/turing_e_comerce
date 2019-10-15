@@ -44,8 +44,7 @@ router.get('/inProduct/:product_id',(req, res) => {
     models.product_attribute.findAll({
         where:{product_id: req.params.product_id}
     })
-    .then((product_attributes) => {
-
+    .then((product_attributes) => { 
         const attributes = product_attributes.map( async function(element){
             console.log(element);
             models.attribute_value.findAll({
