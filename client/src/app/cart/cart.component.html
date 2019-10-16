@@ -1,5 +1,5 @@
 <!-- ========== MAIN CONTENT ========== -->
-  <main id="content" role="main">
+  <main id="content" role="main"  *ngIf="products.length > 0">
     <!-- Cart Section -->
     <div class="container space-1 space-md-2">
       <div class="row">
@@ -7,7 +7,7 @@
           <!-- Title -->
           <div class="d-flex justify-content-between align-items-end border-bottom pb-3 mb-7">
             <h1 class="h4 mb-0">Shopping cart</h1>
-            <span>2 items</span>
+            <span>{{products.length}} items</span>
           </div>
           <!-- End Title -->
 
@@ -23,26 +23,21 @@
                     <div class="media-body">
                       <h2 class="h6">{{product.name}}</h2>
                       <div class="text-secondary font-size-1 mb-1">
-                        <span>Gender:</span>
-                        <span>Men</span>
+                        <p>{{product.description| slice:0:40}}</p>
                       </div>
                       <div class="text-secondary font-size-1 mb-1">
-                        <span>Color:</span>
-                        <span>Grey</span>
+                        <span>Price each: </span>
+                        <span>{{product.price}}</span>
                       </div>
-                      <div class="text-secondary font-size-1 mb-1">
-                        <span>Size:</span>
-                        <span>One size</span>
-                        <a class="link-muted ml-2" href="javascript:;">Edit</a>
-                      </div>
+
                     </div>
                   </div>
                 </div>
 
                 <div class="col-5 col-md-3 offset-md-1">
-                  <input type="number" class="custom-select custom-select-sm w-auto mb-3" [(ngModel)]="product.amount" #ctrl="ngModel"  [ngModelOptions]="{standalone: true}" />
-                    
-                 
+                  <input type="number" class="form-control mb-3" (change)="updateCartProduct(product)" [(ngModel)]="product.amount" #ctrl="ngModel"  [ngModelOptions]="{standalone: true}" />
+
+
 
                   <a class="d-block text-secondary font-size-1 mb-1" (click)="removeFromCart(product.product_id)">
                     <span class="far fa-trash-alt mr-1"></span>
@@ -56,16 +51,16 @@
                 </div>
 
                 <div class="col-6 col-md-2 text-md-right">
-                  <span class="font-weight-medium">{{product.price}}</span>
+                  <span class="font-weight-medium">${{product.price * product.amount}}</span>
                 </div>
               </div>
             </div>
             <!-- End Product Content -->
 
-            
+
 
             <div class="d-flex justify-content-end">
-              <a href="classic.html">
+              <a href="/">
                 <small class="fas fa-arrow-left mr-1"></small>
                 Continue shopping
               </a>
@@ -85,9 +80,9 @@
 
               <div class="border-bottom pb-4 mb-4">
                 <div class="media align-items-center mb-3">
-                  <h3 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Item subtotal (2)</h3>
+                  <h3 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Item subtotal ({{products.length}})</h3>
                   <div class="media-body text-right">
-                    <span class="font-weight-medium">$73.98</span>
+                    <span class="font-weight-medium">${{total}}</span>
                   </div>
                 </div>
 
@@ -112,7 +107,7 @@
                 </div>
                 <!-- End Checkbox -->
 
-                <!-- Checkbox -->
+                <!-- Checkbox --
                 <div class="card border-0">
                   <div class="card-body p-0">
                     <div class="custom-control custom-radio d-flex align-items-center small">
@@ -137,20 +132,20 @@
               <div class="media align-items-center mb-4">
                 <h4 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Total</h4>
                 <div class="media-body text-right">
-                  <span class="font-weight-medium">$73.98</span>
+                  <span class="font-weight-medium">${{total}}</span>
                 </div>
               </div>
 
-              <a class="btn btn-primary btn-pill transition-3d-hover" href="checkout.html">Checkout</a>
-              <button type="submit" class="btn btn-soft-warning btn-pill transition-3d-hover">
+              <a class="btn btn-primary btn-pill transition-3d-hover" href="/checkout">Checkout</a>
+              <!--<button type="submit" class="btn btn-soft-warning btn-pill transition-3d-hover">
                 <img src="../../assets/img/logos/paypal.png" width="70" alt="PayPal logo">
-              </button>
+              </button>-->
             </div>
             <!-- End Order Summary -->
 
-            <!-- Accordion -->
+            <!-- Accordion --
             <div id="shopCartAccordion" class="accordion rounded shadow-soft mb-4">
-              <!-- Card -->
+              <!-- Card --
               <div class="card rounded">
                 <div class="card-header card-collapse" id="shopCartHeadingOne">
                   <h3 class="mb-0">
@@ -175,11 +170,11 @@
                   </form>
                 </div>
               </div>
-              <!-- End Card -->
+              <!-- End Card --
             </div>
             <!-- End Accordion -->
 
-            <!-- Help Link -->
+            <!-- Help Link --
             <div class="media align-items-center">
               <figure id="icon4" class="svg-preloader ie-height-48 w-100 max-width-6 mr-2">
                 <img class="js-svg-injector" src="../../assets/svg/icons/icon-4.svg" alt="SVG"
@@ -200,7 +195,7 @@
   <!-- ========== END MAIN CONTENT ========== -->
 
    <!-- ========== MAIN CONTENT ========== -->
-  <main id="content" role="main">
+  <main id="content" role="main" *ngIf="products.length == 0">
     <!-- Cart Section -->
     <div class="container space-2 space-lg-3">
       <div class="w-md-80 w-lg-50 text-center mx-md-auto">
@@ -212,7 +207,7 @@
           <h1 class="h3 font-weight-medium">Your cart is currently empty</h1>
           <p>Before proceed to checkout you must add some products to your shopping cart. You will find a lot of interesting products on our "Shop" page.</p>
         </div>
-        <a class="btn btn-primary btn-pill transition-3d-hover px-5" href="classic.html">Start Shopping</a>
+        <a class="btn btn-primary btn-pill transition-3d-hover px-5" href="/">Start Shopping</a>
       </div>
     </div>
     <!-- End Cart Section -->

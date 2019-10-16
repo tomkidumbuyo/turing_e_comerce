@@ -15,6 +15,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { HomeComponent } from './home/home.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CheckoutAuthComponent } from './checkout-auth/checkout-auth.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HomeComponent,
     CheckoutComponent,
     NotFoundComponent,
+    CheckoutAuthComponent,
   ],
   imports: [
     BrowserModule,

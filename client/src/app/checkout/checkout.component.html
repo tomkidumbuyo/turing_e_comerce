@@ -176,7 +176,7 @@
         </div>
 
         <div class="col-lg-8 order-lg-1">
-          <form class="js-validate">
+          <form class="js-validate" [formGroup]="checkoutForm">
             <div class="border-bottom pb-7 mb-7">
               <!-- Title -->
               <div class="mb-4">
@@ -193,7 +193,7 @@
                       First name
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="firstName" placeholder="Jack" aria-label="Jack" required
+                    <input type="text" class="form-control" formControlName="firstName" placeholder="Jack" aria-label="Jack" required
                            data-msg="Please enter your frist name."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -208,7 +208,7 @@
                       Last name
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="lastName" placeholder="Wayley" aria-label="Wayley" required
+                    <input type="text" class="form-control" formControlName="lastName" placeholder="Wayley" aria-label="Wayley" required
                            data-msg="Please enter your last name."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -225,7 +225,7 @@
                       Email address
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="email" class="form-control" name="emailAddress" placeholder="jackwayley@gmail.com" aria-label="jackwayley@gmail.com" required
+                    <input type="email" class="form-control" formControlName="email" placeholder="jackwayley@gmail.com" aria-label="jackwayley@gmail.com" required
                            data-msg="Please enter a valid email address."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -239,7 +239,7 @@
                     <label class="form-label">
                       Phone
                     </label>
-                    <input type="text" class="form-control" placeholder="+1 (062) 109-9222" aria-label="+1 (062) 109-9222"
+                    <input type="text" formControlName="phone" class="form-control" placeholder="+1 (062) 109-9222" aria-label="+1 (062) 109-9222"
                            data-msg="Please enter your last name."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -256,7 +256,7 @@
                       Street address
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="streetAddress" placeholder="470 Lucy Forks" aria-label="470 Lucy Forks" required
+                    <input type="text" class="form-control" formControlName="streetAddress" placeholder="470 Lucy Forks" aria-label="470 Lucy Forks" required
                            data-msg="Please enter a valid address."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -270,7 +270,7 @@
                     <label class="form-label">
                       Apt, suite, etc.
                     </label>
-                    <input type="text" class="form-control" placeholder="YC7B 3UT" aria-label="YC7B 3UT"
+                    <input formControlName="suite" type="text" class="form-control" placeholder="YC7B 3UT" aria-label="YC7B 3UT"
                            data-msg="Please enter a valid address."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -285,7 +285,7 @@
                       City
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="cityAddress" placeholder="London" aria-label="London" required
+                    <input type="text" class="form-control" formControlName="cityAddress" placeholder="London" aria-label="London" required
                            data-msg="Please enter a valid address."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -568,7 +568,7 @@
                       Postcode/Zip
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" name="postcode" placeholder="99999" aria-label="99999" required
+                    <input type="text" class="form-control" formControlName="postcode" placeholder="99999" aria-label="99999" required
                            data-msg="Please enter a postcode or zip code."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
@@ -579,10 +579,10 @@
                 <div class="w-100"></div>
 
                 <div class="col-12">
-                  <!-- Checkbox -->
+                  <!-- Checkbox --
                   <div class="js-form-message">
                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted mb-2">
-                      <input type="checkbox" class="custom-control-input" id="termsCheckbox" name="termsCheckbox" required checked
+                      <input type="checkbox" class="custom-control-input" id="termsCheckbox" formControlName="termsCheckbox" required checked
                              data-msg="Please accept our Terms and Conditions.">
                       <label class="custom-control-label" for="termsCheckbox">
                         <small>My billing and delivery information are the same.</small>
@@ -590,7 +590,7 @@
                     </div>
 
                     <div class="custom-control custom-checkbox d-flex align-items-center text-muted">
-                      <input type="checkbox" class="custom-control-input" id="subscribeCheckbox" name="subscribeCheckbox" required checked
+                      <input type="checkbox" class="custom-control-input" id="subscribeCheckbox" formControlName="subscribeCheckbox" required checked
                              data-msg="Please accept our Terms and Conditions.">
                       <label class="custom-control-label" for="subscribeCheckbox">
                         <small>Please send me emails with exclusive gear offers, athlete info and expeditions updates from Front</small>
@@ -616,7 +616,7 @@
                 <label class="form-label">
                   Card number
                 </label>
-                <input type="text" class="form-control" name="cardNumber" placeholder="**** **** **** ***" aria-label="**** **** **** ***" required
+                <input type="text" class="form-control" formControlName="cardNumber" placeholder="**** **** **** ***" aria-label="**** **** **** ***" required
                        data-msg="Please enter a valid card number."
                        data-error-class="u-has-error"
                        data-success-class="u-has-success">
@@ -630,7 +630,7 @@
                     <label class="form-label">
                       Card holder
                     </label>
-                    <input type="text" class="form-control" name="cardHolder" placeholder="Jack Wayley" aria-label="Jack Wayley" required
+                    <input type="text" class="form-control" formControlName="cardHolder" placeholder="Jack Wayley" aria-label="Jack Wayley" required
                            data-msg="Please enter a valid card holder."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">

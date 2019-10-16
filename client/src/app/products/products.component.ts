@@ -11,12 +11,12 @@ import { CartService } from '../cart.service';
 })
 export class ProductsComponent implements OnInit {
 
-  products = []
+  products = [];
   page = 0;
-  pages = 0
-  limit = 16
-  product_count = 0
-  pages_array = []
+  pages = 0;
+  limit = 16;
+  product_count = 0;
+  pages_array = [];
 
   form: FormGroup;
 
@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
     public restApi: RestApiService,
     public router: Router,
     public cart: CartService,
-  ) { 
+  ) {
     // this.form = this.formBuilder.group({
     //   orders: ['']
     // });
@@ -35,25 +35,24 @@ export class ProductsComponent implements OnInit {
     // get all pages count
     this.restApi.get('products/').subscribe((data) => {
       this.product_count = data.count;
-      this.pages = Math.ceil(this.product_count /this.limit)
+      this.pages = Math.ceil(this.product_count / this.limit);
       this.pages_array = Array.from(Array(this.pages).keys());
-      console.log(this.pages_array)
+      console.log(this.pages_array);
     });
     this.pagination(0);
-  
   }
 
-  pagination(page){
+  pagination(page) {
     this.page = page;
-    // get current page 
-    this.restApi.get('products/'+page+'/'+this.limit).subscribe((data) => {
+    // get current page
+    this.restApi.get('products/' + page + '/' + this.limit).subscribe((data) => {
       console.log(data);
       this.products = data.rows;
     });
   }
 
   addToCart(id) {
-    this.cart.addToCart(id)
+    this.cart.addToCart(id);
   }
 
 }

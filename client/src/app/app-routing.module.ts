@@ -6,6 +6,8 @@ import { CartComponent } from './cart/cart.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutAuthComponent } from './checkout-auth/checkout-auth.component';
 
 
 const routes: Routes = [{
@@ -38,11 +40,21 @@ const routes: Routes = [{
   component: CartComponent,
   data: { title: 'Product Details' }
 },
+{
+  path: 'checkout',
+  component: CheckoutComponent,
+  data: { title: 'Product Details' }
+},
+{
+  path: 'checkoutauth',
+  component: CheckoutAuthComponent,
+  data: { title: 'Product Details' }
+},
 { path: '',
   redirectTo: '/products',
   pathMatch: 'full'
 },
-{ 
+{
   path: '**',
   component: NotFoundComponent,
   data: { title: 'Product Details' }
@@ -50,6 +62,6 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+exports: [RouterModule]
 })
 export class AppRoutingModule { }

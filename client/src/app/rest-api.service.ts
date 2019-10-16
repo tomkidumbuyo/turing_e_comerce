@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
+declare var $: any;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,14 +25,14 @@ export class RestApiService {
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   };
 
   // Http Options
   authHttpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/x-www-form-urlencoded'
     })
   };
 
@@ -45,7 +47,7 @@ export class RestApiService {
 
   // HttpClient API post() method
   post(url, data) {
-    return this.http.post<any>(this.apiURL + url, JSON.stringify(data), this.httpOptions)
+    return this.http.post<any>(this.apiURL + url, $.param(data), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -54,7 +56,7 @@ export class RestApiService {
 
   // HttpClient API put() method
   put(url, data) {
-    return this.http.put<any>(this.apiURL + url, JSON.stringify(data), this.httpOptions)
+    return this.http.put<any>(this.apiURL + url, $.param(data), this.httpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -80,8 +82,9 @@ export class RestApiService {
        // Get server-side error
        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
      }
+     console.log(errorMessage);
      console.log(error);
-     window.alert(errorMessage);
+     window.alert(error.error.message);
      return throwError(errorMessage);
   }
 

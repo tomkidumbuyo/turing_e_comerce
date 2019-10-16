@@ -1,0 +1,85 @@
+<main id="content" role="main">
+  <!-- Checkout Section -->
+  <div class="container space-1 space-md-2">
+    <div class="row">
+      <div class="col-md-6">
+          <form class="js-validate w-md-100 w-lg-75 mx-md-auto" novalidate="novalidate" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+              <!-- Title -->
+              <div class="mb-7">
+                <h1 class="h3 text-primary font-weight-normal mb-0">Login</h1>
+                <p>Please log in first</p>
+              </div>
+              <!-- End Title -->
+
+              <!-- Form Group -->
+              <div class="js-form-message form-group">
+                <label class="form-label" for="signinSrEmail">Email address</label>
+                <input type="email" class="form-control" formControlName="email" id="signinSrEmail" placeholder="Email address" aria-label="Email address" required="" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="js-form-message form-group">
+                <label class="form-label" for="signinSrPassword">Password</label>
+                <input type="password" class="form-control" formControlName="password" id="signinSrPassword" placeholder="********" aria-label="********" required="" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
+              </div>
+              <!-- End Form Group -->
+
+
+
+
+
+              <!-- Button -->
+              <div class="row align-items-center mb-5">
+                  <div class="col-12 col-sm-12 ">
+                      <button type="button" class="btn btn-primary transition-3d-hover btn-block" (click)="onLoginSubmit()">Login</button>
+                    </div>
+                </div>
+              <!-- End Button -->
+            </form>
+      </div>
+      <div class="col-md-6">
+          <form class="js-validate w-md-100 w-lg-75 mx-md-auto" novalidate="novalidate"  [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+              <!-- Title -->
+              <div class="mb-7">
+                <h1 class="h3 text-primary font-weight-normal mb-0">Register</h1>
+                <p>Register if you don't have an account</p>
+              </div>
+              <!-- End Title -->
+
+              <!-- Form Group -->
+              <div class="js-form-message form-group">
+                  <label class="form-label" for="signinSrEmail">Full Name</label>
+                  <input type="text" class="form-control" formControlName="name" id="signinSrEmail" placeholder="eg. John Doe" aria-label="full Name" required="" data-msg="Please enter a full name." data-error-class="u-has-error" data-success-class="u-has-success">
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="js-form-message form-group">
+                <label class="form-label" for="signinSrEmail">Email address</label>
+                <input type="email" class="form-control" formControlName="email" id="signinSrEmail" placeholder="Email address" aria-label="Email address" required="" data-msg="Please enter a valid email address." data-error-class="u-has-error" data-success-class="u-has-success">
+              </div>
+              <!-- End Form Group -->
+
+              <!-- Form Group -->
+              <div class="js-form-message form-group">
+                <label class="form-label" for="signinSrPassword">Password</label>
+                <input type="password" class="form-control" formControlName="password" id="signinSrPassword" placeholder="********" aria-label="********" required="" data-msg="Your password is invalid. Please try again." data-error-class="u-has-error" data-success-class="u-has-success">
+              </div>
+              <!-- End Form Group -->
+
+
+              <!-- Button -->
+              <div class="row align-items-center mb-5">
+
+
+                <div class="col-12 col-sm-12 text-right">
+                  <button type="button" class="btn btn-primary transition-3d-hover btn-block" (click) = "onRegisterSubmit()">Register</button>
+                </div>
+              </div>
+              <!-- End Button -->
+            </form>
+      </div>
+    </div>
+  </div>
+</main>

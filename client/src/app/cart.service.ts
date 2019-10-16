@@ -7,43 +7,56 @@ import { Subject, Observable } from 'rxjs';
 })
 export class CartService {
 
-  products = []
-  private subject = new Subject<any>(); 
+  products = [];
+  total = 0;
+  private subject = new Subject<any>();
 
   constructor(
     public restApi: RestApiService,
-  ) { 
-    var localStorageProducts = localStorage.getItem('cart');
-    if(localStorageProducts){
-      this.products = JSON.parse(localStorageProducts)
+  ) {
+    const localStorageProducts = localStorage.getItem('cart');
+    if (localStorageProducts) {
+      this.products = JSON.parse(localStorageProducts);
     }
-    this.subject.next(this.products);
+    this.refreshTotal();
+    this.subject.next({products: this.products, total: this.total});
+
   }
 
-  removeFromCart(id) {
-    this.subject.next(this.products);
+  removeFromCart(id: number) {
+
+    this.products = this.products.filter((currentProduct) => {
+      console.log(currentProduct);   // a, b, c on separate lines
+      return currentProduct.product_id !== id;
+    });
+    localStorage.setItem('cart', JSON.stringify(this.products));
+    this.refreshTotal();
+    this.subject.next({products: this.products, total: this.total});
+
   }
 
-  addToCart(id,amount = 1) {
+  addToCart( id, amount = 1 ) {
 
-    alert("product added to cart")
+    alert('product added to cart');
 
-    var already_added = false;
-    this.products.forEach(function (product) {
-      if(product.product_id == id){
-        already_added = true;
+    let alreadyAdded = false;
+    this.products.forEach((product) => {
+      if (product.product_id === id) {
+        alreadyAdded = true;
         product.amount = amount;
       }
-    }); 
-    if(!already_added){
-      this.restApi.get('products/'+id).subscribe((data) => {
-        data.amount = amount
-        this.products.push(data) 
-      })
+    });
+    if (!alreadyAdded) {
+      this.restApi.get('products/' + id).subscribe((data) => {
+        data.amount = amount;
+        this.products.push(data);
+      });
     }
     localStorage.setItem('cart', JSON.stringify(this.products));
     console.log(this.products);
-    this.subject.next(this.products);
+    this.refreshTotal();
+    this.subject.next({products: this.products, total: this.total});
+
   }
 
   getProductsObservable(): Observable<any> {
@@ -53,6 +66,15 @@ export class CartService {
   emptyCart() {
     this.products = [];
     localStorage.setItem('cart', '[]');
-    this.subject.next(this.products);
+    this.refreshTotal();
+    this.subject.next({products: this.products, total: this.total});
+  }
+
+  refreshTotal() {
+    this.total = 0;
+    this.products.forEach((product) => {
+      this.total += (product.price * product.amount );
+    });
+    console.log('total rubix: ', this.total);
   }
 }
