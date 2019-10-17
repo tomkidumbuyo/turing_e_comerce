@@ -20,14 +20,14 @@ router.get('/:product_id',(req, res) => {
 });
 
 router.get('/:page?/:limit?/:description_length?',(req, res) => {
-    q = {}
+    q = {};
     if (req.params.page && req.params.limit) {
         q.offset = parseInt(req.params.page) * parseInt(req.params.limit);
         q.limit = parseInt(req.params.limit);
     }
     q.subQuery = false
     models.product.findAll(q)
-    .then((products) => {
+    .then((products ) => {
         res.json({count: products.length, rows: products});
     })
     .catch(err => {
@@ -39,15 +39,15 @@ router.get('/search',(req, res) => {
 
 });
 
-router.get('/inCategory/:category_id',(req, res) => {
+router.get('/inCategory/:category_id',(req, res ) => {
 
-})
+});
 
-router.get('/inDepartment/:department_id',(req, res) => {
+router.get('/inDepartment/:department_id',(req, res ) => {
 
-})
+});
 
-router.post('/:product_id/reviews',(req, res) => {
+router.post('/:product_id/reviews',(req, res ) => {
 
 });
 

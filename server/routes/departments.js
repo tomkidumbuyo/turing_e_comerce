@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const models = require("../models");
 
-router.get('/',(req, res) => {
+router.get('/',(req, res ) => {
     models.department.findAll()
     .then(( departments ) => {
         res.json(departments);

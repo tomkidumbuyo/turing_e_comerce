@@ -31,7 +31,7 @@ export class AuthenticationService {
   }
 
   register(email: string, password: string, name: string) {
-    this.restApi.post('customers/', {password: password, email: email,name: name}).subscribe((data) => {
+    this.restApi.post('customers/', {password: password, email: email, name: name}).subscribe((data) => {
       console.log(data);
       this.customer = data.customer.schema;
       this.accessToken = data.accessToken;

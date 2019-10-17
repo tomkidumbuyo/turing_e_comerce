@@ -53,8 +53,17 @@ router.post('/',(req, res) => {
                         }
                     });
 
-                    res.json(data);
+                    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+                    jwt.sign({user: customer}, process.env.JWT_SECRET, (err, token ) => {
 
+                        if (err) {
+                            res.status(500).json({message: "Error signing in in jwt " + err});
+                            return;
+                        }
+
+                        res.json({accessToken:token,customer:{schema:customer}});
+
+                    });
                 })
                 .catch(error => {
                     res.status(500).json({message: "Error adding user." + error});
@@ -74,6 +83,8 @@ router.post('/login',(req, res) => {
 
     email = req.body.email;
     password = req.body.password;
+
+    console.log(req.body)
 
     if(email && password){
 
@@ -110,22 +121,7 @@ router.post('/login',(req, res) => {
                             return;
                         }
 
-                        // accessToken = new AccessTokenModel({
-                        //     access_token: token,
-                        //     user_id: user.username,
-                        //     time: Date.now(),
-                        //     ip_adress: ip,
-                        // });
-
-                        // accessToken.save()
-                        // .then(data => {
-                        //     res.json(data);
-                        // })
-                        // .catch(err => {
-                        //     res.status(500).json({message: err});
-                        // });
-
-                        res.json({token:token,customer:customer});
+                        res.json({accessToken:token,customer:{schema:customer}});
 
                     });
                 }else{

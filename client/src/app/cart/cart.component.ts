@@ -39,7 +39,7 @@ export class CartComponent implements OnInit {
   }
 
   updateCartProduct(product) {
-    this.cart.addToCart(product.product_id,product.amount);
+    this.cart.addToCart(product.product_id, product.amount);
   }
 
 }

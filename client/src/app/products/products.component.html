@@ -1,13 +1,13 @@
 <!-- ========== MAIN CONTENT ========== -->
   <main id="content" role="main">
     <!-- Title Section -->
-    
+
 
     <!-- Products & Filters Section -->
     <div class="container space-2 space-bottom-lg-3">
       <div class="row">
         <div class="col-lg-9">
-          
+
 
           <!-- Products -->
           <div class="row mx-n2 mb-2">
@@ -40,8 +40,9 @@
                   </div>
                 </div>
 
+                
                 <div class="card-footer border-0 pt-0 pb-4 px-4">
-                  
+
                   <button type="button" class="btn btn-sm btn-outline-primary btn-sm-wide btn-pill transition-3d-hover" (click)="addToCart(product.product_id)">Add to Cart</button>
                 </div>
               </div>
@@ -65,11 +66,11 @@
               <li class="page-item">
                 <div class="d-flex align-items-center">
                   <span class="d-none d-sm-inline-block text-secondary">Page:</span>
-					
+
                   <select class="custom-select custom-select-sm w-auto mx-2" (change)="pagination($event.target.value)">
                     <option value="{{pg}}" *ngFor="let pg of pages_array">{{pg+1}}</option>
                   </select>
-						
+
                   <span class="d-none d-sm-inline-block text-secondary">of {{pages}}</span>
                 </div>
               </li>
@@ -93,7 +94,7 @@
         <!-- Filters -->
         <div class="col-lg-3">
           <form>
-            
+
 
             <div class="border-bottom pb-4 mb-4">
               <h4 class="h6 mb-3">Gender</h4>

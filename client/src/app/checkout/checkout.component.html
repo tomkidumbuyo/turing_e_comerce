@@ -14,63 +14,31 @@
               <!-- End Title -->
 
               <!-- Product Content -->
-              <div class="border-bottom pb-4 mb-4">
+              <div class="border-bottom pb-4 mb-4" *ngFor="let product of products">
                 <div class="media">
                   <div class="position-relative max-width-10 w-100 mr-3">
-                    <img class="img-fluid" src="../../assets/img/320x320/img2.jpg" alt="Image Description">
-                    <span class="badge badge-sm badge-primary badge-pos rounded-circle">1</span>
+                    <img class="img-fluid" src="../../assets/img/product_images/{{product.image}}" alt="Image Description">
+                    <span class="badge badge-sm badge-primary badge-pos rounded-circle">{{product.amount}}</span>
                   </div>
                   <div class="media-body">
-                    <h2 class="h6">Originals national backpack</h2>
+                    <h2 class="h6">{{product.tittle}}</h2>
                     <div class="text-secondary font-size-1">
-                      <span>Gender:</span>
-                      <span>Men</span>
-                    </div>
-                    <div class="text-secondary font-size-1">
-                      <span>Color:</span>
-                      <span>Grey</span>
-                    </div>
-                    <div class="text-secondary font-size-1">
-                      <span>Size:</span>
-                      <span>One size</span>
+                      <span>{{product.description | slice:0:30}}</span>
+
                     </div>
                   </div>
                 </div>
               </div>
               <!-- End Product Content -->
 
-              <!-- Product Content -->
-              <div class="border-bottom pb-4 mb-4">
-                <div class="media">
-                  <div class="position-relative max-width-10 w-100 mr-3">
-                    <img class="img-fluid" src="../../assets/img/320x320/img3.jpg" alt="Image Description">
-                    <span class="badge badge-sm badge-primary badge-pos rounded-circle">1</span>
-                  </div>
-                  <div class="media-body">
-                    <h2 class="h6">Vans large image t-shirt</h2>
-                    <div class="text-secondary font-size-1">
-                      <span>Gender:</span>
-                      <span>Women</span>
-                    </div>
-                    <div class="text-secondary font-size-1">
-                      <span>Color:</span>
-                      <span>Core Black / Carbon</span>
-                    </div>
-                    <div class="text-secondary font-size-1">
-                      <span>Size:</span>
-                      <span>SM</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- End Product Content -->
+
 
               <!-- Fees -->
               <div class="border-bottom pb-4 mb-4">
                 <div class="media align-items-center mb-3">
-                  <h3 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Item subtotal (2)</h3>
+                  <h3 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Item subtotal ({{products.length}})</h3>
                   <div class="media-body text-right">
-                    <span class="font-weight-medium">$73.98</span>
+                    <span class="font-weight-medium">${{total}}</span>
                   </div>
                 </div>
 
@@ -95,20 +63,6 @@
                 </div>
                 <!-- End Checkbox -->
 
-                <!-- Checkbox -->
-                <div class="card border-0 mb-3">
-                  <div class="card-body p-0">
-                    <div class="custom-control custom-radio d-flex align-items-center small">
-                      <input type="radio" class="custom-control-input" id="deliveryRadio2" name="deliveryRadio">
-                      <label class="custom-control-label ml-1" for="deliveryRadio2">
-                        <span class="d-block font-size-1 font-weight-medium mb-1">$7.99 - Express delivery</span>
-                        <span class="d-block text-muted">Shipment may take 2-3 business days.</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Checkbox -->
-
                 <div class="media align-items-center">
                   <h4 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Estimated tax</h4>
                   <div class="media-body text-right">
@@ -122,56 +76,14 @@
               <div class="media align-items-center">
                 <h4 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Total</h4>
                 <div class="media-body text-right">
-                  <span class="font-weight-semi-bold">$73.98</span>
+                  <span class="font-weight-semi-bold">${{total}}</span>
                 </div>
               </div>
               <!-- End Total -->
             </div>
             <!-- End Order Summary -->
 
-            <!-- Accordion -->
-            <div id="shopCartAccordion" class="accordion rounded shadow-soft mb-4">
-              <!-- Card -->
-              <div class="card rounded">
-                <div class="card-header card-collapse" id="shopCartHeadingOne">
-                  <h3 class="mb-0">
-                    <button type="button" class="btn btn-link btn-block card-btn font-weight-medium collapsed"
-                            data-toggle="collapse"
-                            data-target="#shopCartOne"
-                            aria-expanded="false"
-                            aria-controls="shopCartOne">
-                      Promo code?
-                      <span class="far fa-question-circle text-secondary ml-1" data-container="body" data-toggle="popover" data-placement="top" data-trigger="hover" title="Promo code" data-content="Valid on full priced items only. Some products maybe excluded."></span>
-                    </button>
-                  </h3>
-                </div>
-                <div id="shopCartOne" class="collapse" aria-labelledby="shopCartHeadingOne" data-parent="#shopCartAccordion">
-                  <form class="js-validate p-5">
-                    <div class="input-group input-group-pill mb-3">
-                      <input type="text" class="form-control" name="name" placeholder="Promo code" aria-label="Promo code">
-                      <div class="input-group-append">
-                        <button type="submit" class="btn btn-block btn-primary btn-pill transition-3d-hover">Apply</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <!-- End Card -->
-            </div>
-            <!-- End Accordion -->
-
-            <!-- Help Link -->
-            <div class="media align-items-center">
-              <figure id="icon4" class="svg-preloader ie-height-48 w-100 max-width-6 mr-2">
-                <img class="js-svg-injector" src="../../assets/svg/icons/icon-4.svg" alt="SVG"
-                     data-parent="#icon4">
-              </figure>
-              <div class="media-body text-secondary small">
-                <span class="font-weight-medium mr-1">Need Help?</span>
-                <a class="link-muted" href="checkout.html#">Chat now</a>
-              </div>
-            </div>
-            <!-- End Help Link -->
+           
           </div>
         </div>
 
