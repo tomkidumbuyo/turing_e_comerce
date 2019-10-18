@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CartService } from '../cart.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { RestApiService } from '../rest-api.service';
+declare const Stripe: any;
+declare var $: any;
+
 
 @Component({
   selector: 'app-checkout',
@@ -14,12 +17,20 @@ import { RestApiService } from '../rest-api.service';
 export class CheckoutComponent implements OnInit {
 
   public checkoutForm: FormGroup;
+  
+  stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
   products: any[] = [];
   regions: any[] = [];
+  shippings: any[] = [];
   subscription: Subscription;
-  total = 0;
+  shipingSelected;
+  shipingSelectedPrice: number;
+  buttonValue: number;
+  card;
+  elements;
 
+  total = 0;
 
   constructor(
     private restApi: RestApiService,
@@ -38,9 +49,11 @@ export class CheckoutComponent implements OnInit {
       cityAddress: new FormControl(),
       cardNumber: new FormControl(),
       suite: new FormControl(),
+      country: new FormControl(),
       phone: new FormControl(),
       cardHolder: new FormControl(),
-      password: new FormControl()
+      password: new FormControl(),
+      shipping_region: new FormControl(),
     });
 
     this.products = cart.products;
@@ -49,7 +62,8 @@ export class CheckoutComponent implements OnInit {
       this.products = cartObject.products;
       this.total = cartObject.total;
     });
-    console.log(this.products);
+
+    this.checkoutForm.controls.country.setValue('AF');
   }
 
   ngOnInit() {
@@ -58,16 +72,43 @@ export class CheckoutComponent implements OnInit {
       this.router.navigate(['/checkoutauth']);
     }
 
+    this.elements = this.stripe.elements();
+    this.card = elements.create('card', {style: style});
+
     this.restApi.get('shipping/regions').subscribe((data) => {
-      console.log(data);
       this.regions = data;
+      this.checkoutForm.controls.shipping_region.setValue('2');
+      this.changeRegion();
     });
 
   }
 
   placeOrder() {
+    console.log('herherherher')
+    
+    this.stripe.createToken(this.card, {
+      country: 'US',
+      currency: 'usd',
+      account_holder_name: 'Jenny Rosen',
+      account_holder_type: 'individual',
+    }).then(function(result) {
+      console.log(result)
+      // Handle result.error or result.token
+    });
 
   }
 
+  changeRegion() {
+    this.restApi.get('shipping/regions/' + this.checkoutForm.value.shipping_region).subscribe((data) => {
+      this.shippings = data;
+      this.shippingChange(this.shippings[0]);
+    });
+  }
+
+  shippingChange(shipping) {
+    this.shipingSelected = shipping.shipping_id;
+    // tslint:disable-next-line:radix
+    this.shipingSelectedPrice = parseInt(shipping.shipping_cost);
+  }
 
 }

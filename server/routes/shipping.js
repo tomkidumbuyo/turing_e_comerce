@@ -4,33 +4,30 @@ var models = require('../models');
 Sequelize = require('sequelize');
 
 router.get('/regions',(req, res) => {
-    const Op = Sequelize.Op
-    models.shipping_region.findAll({
-        where:{[Op.ne]: 1}
-    })
+    models.shipping_region.findAll()
     .then((shipping_regions) => {
+        shipping_regions.shift();
         res.json(shipping_regions);
     })
     .catch(err => {
-        res.status(500).json({message: "erro executing request"+err});
+        res.status(500).json({message: "error executing request. "+err});
     });
 });
 
 router.get('/regions/:shipping_region_id',(req, res) => {
-    models.shipping_region.findAll({
-        where:{attribute_id: req.params.attribute_id},
-        include: [{model: models.shipping, as: "category"}],
+    models.shipping.findAll({
+        where:{shipping_region_id: req.params.shipping_region_id},
         limit:1
     })
-    .then((attributes) => {
-        if(attributes.length){
-            res.json(attributes[0]);
+    .then((shipping) => {
+        if(shipping.length){
+            res.json(shipping);
         }else{
             res.status(500).json({message: "attribute not found"});
         }
     })
     .catch(err => {
-        res.status(500).json({message: "erro executing request"+err});
+        res.status(500).json({message: "error executing request. "+err});
     });
 });
 

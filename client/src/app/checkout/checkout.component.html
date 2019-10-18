@@ -1,4 +1,5 @@
 <!-- ========== MAIN CONTENT ========== -->
+<script src="https://js.stripe.com/v3/"></script>
   <main id="content" role="main">
     <!-- Checkout Section -->
     <div class="container space-1 space-md-2">
@@ -45,18 +46,18 @@
                 <div class="media align-items-center mb-3">
                   <h4 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Delivery</h4>
                   <div class="media-body text-right">
-                    <span class="font-weight-medium">Free</span>
+                    <span class="font-weight-medium">${{shipingSelectedPrice}}</span>
                   </div>
                 </div>
 
                 <!-- Checkbox -->
-                <div class="card border-0 mb-3">
+                <div class="card border-0 mb-3" *ngFor="let shipping of shippings ">
                   <div class="card-body p-0">
                     <div class="custom-control custom-radio d-flex align-items-center small">
-                      <input type="radio" class="custom-control-input" id="deliveryRadio1" name="deliveryRadio" checked>
+                      <input type="radio" class="custom-control-input" [(ngModel)]="shipingSelected" value="{{shipping.shipping_id}}" (change)="shippingChange(shipping)" checked>
                       <label class="custom-control-label ml-1" for="deliveryRadio1">
-                        <span class="d-block font-size-1 font-weight-medium mb-1">Free - Standard delivery</span>
-                        <span class="d-block text-muted">Shipment may take 5-6 business days.</span>
+                        <span class="d-block font-size-1 font-weight-medium mb-1">{{shipping.shipping_cost}} - Standard delivery</span>
+                        <span class="d-block text-muted">{{shipping.shipping_type}}</span>
                       </label>
                     </div>
                   </div>
@@ -76,14 +77,14 @@
               <div class="media align-items-center">
                 <h4 class="text-secondary font-size-1 font-weight-normal mb-0 mr-3">Total</h4>
                 <div class="media-body text-right">
-                  <span class="font-weight-semi-bold">${{total}}</span>
+                  <span class="font-weight-semi-bold">${{total + shipingSelectedPrice}}</span>
                 </div>
               </div>
               <!-- End Total -->
             </div>
             <!-- End Order Summary -->
 
-           
+
           </div>
         </div>
 
@@ -161,6 +162,22 @@
 
                 <div class="w-100"></div>
 
+                <div class="col-md-4">
+                  <!-- Input -->
+                  <div class="js-form-message mb-6">
+                    <label class="form-label">
+                      Shiping Region
+                    </label>
+                    <select class="form-control custom-select" required
+                            data-msg="Please select country."
+                            data-error-class="u-has-error"
+                            data-success-class="u-has-success" formControlName="shipping_region" (change)="changeRegion()">
+                            <option *ngFor="let region of regions" value="{{region.shipping_region_id}}">{{region.shipping_region}}</option>
+                          </select>
+                  </div>
+                  <!-- End Input -->
+                </div>
+
                 <div class="col-md-8">
                   <!-- Input -->
                   <div class="js-form-message mb-6">
@@ -176,19 +193,7 @@
                   <!-- End Input -->
                 </div>
 
-                <div class="col-md-4">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Apt, suite, etc.
-                    </label>
-                    <input formControlName="suite" type="text" class="form-control" placeholder="YC7B 3UT" aria-label="YC7B 3UT"
-                           data-msg="Please enter a valid address."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
+
 
                 <div class="col-md-12">
                   <!-- Input -->
@@ -214,11 +219,10 @@
                       Country
                       <span class="text-danger">*</span>
                     </label>
-                    <select class="form-control custom-select" required
+                    <select formControlName="country" class="form-control custom-select" required
                             data-msg="Please select country."
                             data-error-class="u-has-error"
                             data-success-class="u-has-success">
-                      <option value="">Select country</option>
                       <option value="AF">Afghanistan</option>
                       <option value="AX">Åland Islands</option>
                       <option value="AL">Albania</option>
@@ -525,13 +529,17 @@
 
               <!-- Input -->
               <div class="js-form-message mb-6">
-                <label class="form-label">
+                <label class="form-label" for="card-element">
                   Card number
                 </label>
-                <input type="text" class="form-control" formControlName="cardNumber" placeholder="**** **** **** ***" aria-label="**** **** **** ***" required
+                <div id="card-element">
+                    <!-- A Stripe Element will be inserted here. -->
+                  </div>
+                <input id="bank_account" type="text" class="form-control" formControlName="cardNumber" placeholder="**** **** **** ***" aria-label="**** **** **** ***" required
                        data-msg="Please enter a valid card number."
                        data-error-class="u-has-error"
                        data-success-class="u-has-success">
+                       <small>Try it out using the test card number <b>4242 4242 4242 4242</b>, a random three-digit CVC number, any expiration date in the future, and a random five-digit U.S. ZIP code.</small>
               </div>
               <!-- End Input -->
 
@@ -577,12 +585,13 @@
                   </div>
                   <!-- End Input -->
                 </div>
+                
               </div>
 
               <!-- Button -->
               <div class="d-flex justify-content-between align-items-center">
-                <a href="cart.html"><small class="fas fa-arrow-left mr-2"></small> Return to cart</a>
-                <button type="submit" class="btn btn-primary btn-sm-wide btn-pill transition-3d-hover">Place order</button>
+                <a href="/cart"><small class="fas fa-arrow-left mr-2"></small> Return to cart</a>
+                <button type="submit" class="btn btn-primary btn-sm-wide btn-pill transition-3d-hover" (click)="placeOrder()">Place order</button>
               </div>
               <!-- End Button -->
             </div>
