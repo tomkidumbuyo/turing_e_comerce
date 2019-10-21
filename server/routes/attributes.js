@@ -45,24 +45,28 @@ router.get('/inProduct/:product_id',(req, res) => {
         where:{product_id: req.params.product_id}
     })
     .then((product_attributes) => { 
-        const attributes = product_attributes.map( async function(element){
+        const attrbts = []
+        product_attributes.forEach((element,index) => {
+            
             console.log(element);
             models.attribute_value.findAll({
-                where:{attribute_value_id: element.dataValues.attribute_value_id},
+                where:{attribute_value_id: element.attribute_value_id},
             })
             .then((attributes) => {
                 if(attributes.length){
-                    return attributes[0].dataValues;
+                    attrbts.push(attributes[0]);
+                    if (index == (product_attributes.length-1)){
+                        res.json(attrbts);
+                    }
                 }else{
                     return false;
                 }
             })
             .catch(err => {
-                console.log(err);
                 return false;
             });
         });
-        res.json(attributes);
+        
     })
     .catch(err => {
         res.status(500).json({message: "Error executing request. "+err});

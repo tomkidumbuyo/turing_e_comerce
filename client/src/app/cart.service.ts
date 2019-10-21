@@ -9,14 +9,26 @@ export class CartService {
 
   products = [];
   total = 0;
+  cart_id;
+
   private subject = new Subject<any>();
 
   constructor(
     public restApi: RestApiService,
   ) {
-    const localStorageProducts = localStorage.getItem('cart');
-    if (localStorageProducts) {
-      this.products = JSON.parse(localStorageProducts);
+
+    this.cart_id = localStorage.getItem('cart_id');
+
+    if (this.cart_id && this.cart_id != 'null') {
+      console.log("null returns true ");
+      this.restApi.get('shoppingcart/'+this.cart_id).subscribe((data) => {
+        this.products = data;
+      });
+    }else{
+      this.restApi.get('shoppingcart/generateUniqueId').subscribe((data) => {
+        this.cart_id = data.cart_id
+        localStorage.setItem('cart_id',this.cart_id);
+      });
     }
     this.refreshTotal();
     this.subject.next({products: this.products, total: this.total});
@@ -25,17 +37,18 @@ export class CartService {
 
   removeFromCart(id: number) {
 
-    this.products = this.products.filter((currentProduct) => {
-      console.log(currentProduct);   // a, b, c on separate lines
-      return currentProduct.product_id !== id;
+    this.restApi.delete('shoppingcart/removeProduct/' + id).subscribe((data) => {
+      this.products = this.products.filter((currentProduct) => {
+        return currentProduct.item_id !== id;
+      });
     });
-    localStorage.setItem('cart', JSON.stringify(this.products));
+
     this.refreshTotal();
     this.subject.next({products: this.products, total: this.total});
 
   }
 
-  addToCart( id, amount = 1 ) {
+  addToCart( id, amount = 1 , attributes = "" ) {
 
     alert('product added to cart');
 
@@ -44,10 +57,19 @@ export class CartService {
       if (product.product_id === id) {
         alreadyAdded = true;
         product.amount = amount;
+        this.restApi.put('shoppingcart/update/'+this.cart_id,{
+          quantity: amount,
+        }).subscribe((data) => {
+          this.products = data;
+        });
       }
     });
     if (!alreadyAdded) {
-      this.restApi.get('products/' + id).subscribe((data) => {
+      this.restApi.post('shoppingcart/add',{
+        cart_id: this.cart_id,
+        product_id: id,
+        attributes: attributes
+      }).subscribe((data) => {
         data.amount = amount;
         this.products.push(data);
       });
@@ -66,6 +88,12 @@ export class CartService {
   emptyCart() {
     this.products = [];
     localStorage.setItem('cart', '[]');
+
+    this.restApi.delete('shoppingcart/empty/' + this.cart_id).subscribe((data) => {
+      this.products = [];
+      localStorage.setItem('cart', '[]');
+    });
+
     this.refreshTotal();
     this.subject.next({products: this.products, total: this.total});
   }
@@ -75,6 +103,9 @@ export class CartService {
     this.products.forEach((product) => {
       this.total += (product.price * product.amount );
     });
-    console.log('total rubix: ', this.total);
+  }
+
+  saveOrder() {
+
   }
 }

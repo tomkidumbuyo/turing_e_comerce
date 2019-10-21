@@ -1,4 +1,5 @@
-const uuid = require('uuid/v4'); // ES5
+const uuid = require('uuid/v4');
+
 
 'use strict';
 module.exports = (sequelize, DataTypes) => {
