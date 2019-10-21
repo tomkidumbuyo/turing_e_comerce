@@ -19,7 +19,7 @@ router.get('/regions/:shipping_region_id',(req, res) => {
         where:{shipping_region_id: req.params.shipping_region_id},
         limit:1
     })
-    .then((shipping) => {
+    .then((shipping ) => {
         if(shipping.length){
             res.json(shipping);
         }else{

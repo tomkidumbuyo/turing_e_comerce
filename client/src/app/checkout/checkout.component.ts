@@ -17,7 +17,7 @@ declare var $: any;
 export class CheckoutComponent implements OnInit {
 
   public checkoutForm: FormGroup;
-  
+
   stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
   products: any[] = [];
@@ -73,7 +73,18 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.elements = this.stripe.elements();
-    this.card = this.elements.create('card', {style: {}});
+
+    this.card = this.elements.create('card', {style: {
+      base: {
+        // Add your base input styles here. For example:
+        fontSize: '16px',
+        lineHeight: '24px',
+        color: 'rgb(30, 32, 34)',
+        fontFamily: '"Poppins", Helvetica, Arial, sans-serif'
+      }
+    }});
+    this.card.mount('#card-element');
+
 
     this.restApi.get('shipping/regions').subscribe((data) => {
       this.regions = data;
@@ -84,19 +95,44 @@ export class CheckoutComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log('herherherher')
-    
+
+
+    var thisInstance = this;
+
     this.stripe.createToken(this.card, {
       country: 'US',
       currency: 'usd',
       account_holder_name: 'Jenny Rosen',
       account_holder_type: 'individual',
     }).then(function(result) {
-      console.log(result)
-      // Handle result.error or result.token
-    });
 
+      console.log(thisInstance);
+      console.log(result);
+
+      thisInstance.restApi.postAuth('orders', {
+        cart_id: thisInstance.cart.cartId,
+        shipping_id: thisInstance.shipingSelected,
+        tax_id: 2
+      }).subscribe((order) => {
+
+        console.log(order);
+        console.log('hehe2323232323232');
+
+        thisInstance.restApi.post('stripe/charge', {
+          stripeToken: result.token,
+          order_id: order.order_id,
+          description: 'turing ecommerce chages',
+          amount: (thisInstance.total + thisInstance.shipingSelectedPrice)
+        }).subscribe((data) => {
+          console.log(order);
+
+        });
+
+      });
+
+    });
   }
+
 
   changeRegion() {
     this.restApi.get('shipping/regions/' + this.checkoutForm.value.shipping_region).subscribe((data) => {

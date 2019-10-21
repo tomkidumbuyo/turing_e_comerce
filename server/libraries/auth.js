@@ -1,35 +1,34 @@
 const express = require('express');
 const router = express.Router();
-const UserModel = require("../models/users");
-const AccessTokenModel = require("../models/access_tokens");
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const models = require('../models');
 require('dotenv/config');
 
-function verify_token (req,res){
+function verify_token (req,res,next){
   try {
     if(req.headers.authorization !== undefined){
 
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decodedToken.userId;
+      const customer_id = decodedToken.user.customer_id;
 
       models.customer.findAll({
-        where: {customer_id: userId },
+        where: {customer_id: customer_id },
         limit: 1
       })
       .then((customers) => {
 
-        res.user = customers[0];
+        res.customer = customers[0];
         console.log(res.user);
         next();
-
       });
+      
     }else{
       throw 'Please add an authorization token on your header.';
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(401).json({
       error: new Error('Invalid request!')
     });

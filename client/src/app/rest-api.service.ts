@@ -14,14 +14,6 @@ export class RestApiService {
   // Define API
   apiURL = 'http://localhost:7200/';
 
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  /*========================================
-    CRUD Methods for consuming RESTful API
-  =========================================*/
-
   // Http Options
   httpOptions = {
     headers: new HttpHeaders({
@@ -32,13 +24,41 @@ export class RestApiService {
   // Http Options
   authHttpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded'
+      'Content-Type': 'application/x-www-form-urlencoded',
     })
   };
+
+  constructor(
+    private http: HttpClient,
+  ) {
+    const authData = JSON.parse(localStorage.getItem('authData'));
+    if (authData && authData !== 'null') {
+      this.authHttpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: 'Bearer ' + authData.accessToken
+        })
+      };
+    }
+  }
+
+  /*========================================
+    CRUD Methods for consuming RESTful API
+  =========================================*/
+
+
 
   // HttpClient API get() method
   get(url) {
     return this.http.get<any>(this.apiURL + url)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  getAuth(url) {
+    return this.http.get<any>(this.apiURL + url, this.authHttpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)
@@ -54,6 +74,14 @@ export class RestApiService {
     );
   }
 
+  postAuth(url, data) {
+    return this.http.post<any>(this.apiURL + url, $.param(data), this.authHttpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   // HttpClient API put() method
   put(url, data) {
     return this.http.put<any>(this.apiURL + url, $.param(data), this.httpOptions)
@@ -63,9 +91,25 @@ export class RestApiService {
     );
   }
 
+  putAuth(url, data) {
+    return this.http.put<any>(this.apiURL + url, $.param(data), this.authHttpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
   // HttpClient API delete() method
   delete(url) {
     return this.http.delete<any>(this.apiURL + url, this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+
+  deleteAuth(url) {
+    return this.http.delete<any>(this.apiURL + url, this.authHttpOptions)
     .pipe(
       retry(1),
       catchError(this.handleError)

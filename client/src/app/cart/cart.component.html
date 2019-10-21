@@ -29,17 +29,21 @@
                         <span>Price each: </span>
                         <span>{{product.price}}</span>
                       </div>
+                      <div class="text-secondary font-size-1 mb-1">
+                        <span>Attributes: </span>
+                        <span>{{product.attributes}}</span>
+                      </div>
 
                     </div>
                   </div>
                 </div>
 
                 <div class="col-5 col-md-3 offset-md-1">
-                  <input type="number" class="form-control mb-3" (change)="updateCartProduct(product)" [(ngModel)]="product.amount" #ctrl="ngModel"  [ngModelOptions]="{standalone: true}" />
+                  <input type="number" class="form-control mb-3" (change)="updateCartProduct(product)" [(ngModel)]="product.quantity" #ctrl="ngModel"  [ngModelOptions]="{standalone: true}" />
 
 
 
-                  <a class="d-block text-secondary font-size-1 mb-1" (click)="removeFromCart(product.product_id)">
+                  <a class="d-block text-secondary font-size-1 mb-1" (click)="removeFromCart(product.item_id)">
                     <span class="far fa-trash-alt mr-1"></span>
                     <span>Remove</span>
                   </a>
@@ -51,7 +55,7 @@
                 </div>
 
                 <div class="col-6 col-md-2 text-md-right">
-                  <span class="font-weight-medium">${{product.price * product.amount}}</span>
+                  <span class="font-weight-medium">${{product.price * product.quantity}}</span>
                 </div>
               </div>
             </div>

@@ -3,17 +3,18 @@ const stripe = require("stripe")("sk_test_4eC39HqLyjWDarjtT1zdp7dc");
 const express = require('express');
 const router = express.Router();
 
-router.post('/stripe/charge', (req, res ) => {
+router.post('/charge', (req, res ) => {
 
-    const token = request.body.stripeToken; // Using Express
+    const token = req.body.stripeToken; // Using Express
 
     (async () => {
-    const charge = await stripe.charges.create({
-        amount: 999,
+    res.json( await stripe.charges.create({
+        amount: req.body.amount,
         currency: 'usd',
-        description: 'Example charge',
+        description: req.body.description,
         source: token,
-    });
+    }));
+
     })();
 });
 

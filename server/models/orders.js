@@ -2,7 +2,7 @@ const uuid = require('uuid/v4'); // ES5
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const orders = sequelize.define('orders', {
-    orders_id: {
+    order_id: {
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,

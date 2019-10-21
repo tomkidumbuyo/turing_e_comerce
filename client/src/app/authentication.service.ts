@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { RestApiService } from './rest-api.service';
 import { Router } from '@angular/router';
+import { RestApiService } from './rest-api.service';
 
 @Injectable({
   providedIn: 'root'

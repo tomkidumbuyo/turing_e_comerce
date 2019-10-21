@@ -4,8 +4,9 @@
     "password": "root",
     "database": "ecommerce",
     "host": "127.0.0.1",
-    "dialect": "mysql",
     "port": 8889,
+    "dialect": "mysql",
+   
     "operatorsAliases": false
   },
   "test": {
@@ -13,8 +14,9 @@
     "password": "root",
     "database": "ecommerce",
     "host": "127.0.0.1",
-    "dialect": "mysql",
     "port": 8889,
+    "dialect": "mysql",
+ 
     "operatorsAliases": false
   },
   "production": {
@@ -22,8 +24,9 @@
     "password": "root",
     "database": "ecommerce",
     "host": "127.0.0.1",
-    "dialect": "mysql",
     "port": 8889,
+    "dialect": "mysql",
+    
     "operatorsAliases": false
   }
 }

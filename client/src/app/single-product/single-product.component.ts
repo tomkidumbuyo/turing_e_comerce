@@ -13,6 +13,7 @@ export class SingleProductComponent implements OnInit {
 
   id: number;
   product = {};
+  attributes = []
   quantity: number = 1
 
   constructor(
@@ -28,12 +29,37 @@ export class SingleProductComponent implements OnInit {
       this.product = data;
       console.log(this.product);
     })
-    console.log("id",this.id)
 
+    this.restApi.get('attributes/').subscribe((data) => {
+      this.attributes = data;
+      this.restApi.get('attributes/inProduct/'+this.id).subscribe((data) => {
+        
+        this.attributes.forEach(attribute => {
+          attribute.values = []
+          data.forEach(element => {
+            if (attribute.attribute_id == element.attribute_id){
+              attribute.values.push(element)
+            }
+          })
+          this.selectAttribute(attribute,attribute.values[0])
+        });
+      })
+    })
+  }
+
+  selectAttribute(attribute,value) {
+    attribute.value = value;
   }
 
   addToCart() {
-    this.cart.addToCart(this.id,this.quantity)
+    var attrs = "";
+    this.attributes.forEach((attribute,index) => {
+      if (index > 0){
+        attrs += ", "
+      }
+      attrs += attribute.value.value;
+    })
+    this.cart.addToCart(this.id,this.quantity,attrs)
   }
 
   add_qty() {

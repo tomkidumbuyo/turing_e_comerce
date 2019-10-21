@@ -19,7 +19,7 @@
                 <div class="media">
                   <div class="position-relative max-width-10 w-100 mr-3">
                     <img class="img-fluid" src="../../assets/img/product_images/{{product.image}}" alt="Image Description">
-                    <span class="badge badge-sm badge-primary badge-pos rounded-circle">{{product.amount}}</span>
+                    <span class="badge badge-sm badge-primary badge-pos rounded-circle">{{product.quantity}}</span>
                   </div>
                   <div class="media-body">
                     <h2 class="h6">{{product.tittle}}</h2>
@@ -99,70 +99,8 @@
 
               <!-- Billing Form -->
               <div class="row">
-                <div class="col-md-6">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      First name
-                      <span class="text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" formControlName="firstName" placeholder="Jack" aria-label="Jack" required
-                           data-msg="Please enter your frist name."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
 
                 <div class="col-md-6">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Last name
-                      <span class="text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" formControlName="lastName" placeholder="Wayley" aria-label="Wayley" required
-                           data-msg="Please enter your last name."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="w-100"></div>
-
-                <div class="col-md-6">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Email address
-                      <span class="text-danger">*</span>
-                    </label>
-                    <input type="email" class="form-control" formControlName="email" placeholder="jackwayley@gmail.com" aria-label="jackwayley@gmail.com" required
-                           data-msg="Please enter a valid email address."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="col-md-6">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Phone
-                    </label>
-                    <input type="text" formControlName="phone" class="form-control" placeholder="+1 (062) 109-9222" aria-label="+1 (062) 109-9222"
-                           data-msg="Please enter your last name."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="w-100"></div>
-
-                <div class="col-md-4">
                   <!-- Input -->
                   <div class="js-form-message mb-6">
                     <label class="form-label">
@@ -177,40 +115,6 @@
                   </div>
                   <!-- End Input -->
                 </div>
-
-                <div class="col-md-8">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Street address
-                      <span class="text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" formControlName="streetAddress" placeholder="470 Lucy Forks" aria-label="470 Lucy Forks" required
-                           data-msg="Please enter a valid address."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-
-
-                <div class="col-md-12">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      City
-                      <span class="text-danger">*</span>
-                    </label>
-                    <input type="text" class="form-control" formControlName="cityAddress" placeholder="London" aria-label="London" required
-                           data-msg="Please enter a valid address."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="w-100"></div>
 
                 <div class="col-md-6">
                   <!-- Input -->
@@ -481,11 +385,26 @@
                   <!-- Input -->
                   <div class="js-form-message mb-6">
                     <label class="form-label">
-                      Postcode/Zip
+                      Street address
                       <span class="text-danger">*</span>
                     </label>
-                    <input type="text" class="form-control" formControlName="postcode" placeholder="99999" aria-label="99999" required
-                           data-msg="Please enter a postcode or zip code."
+                    <input type="text" class="form-control" formControlName="streetAddress" placeholder="470 Lucy Forks" aria-label="470 Lucy Forks" required
+                           data-msg="Please enter a valid address."
+                           data-error-class="u-has-error"
+                           data-success-class="u-has-success">
+                  </div>
+                  <!-- End Input -->
+                </div>
+
+                <div class="col-md-6">
+                  <!-- Input -->
+                  <div class="js-form-message mb-6">
+                    <label class="form-label">
+                      City
+                      <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" formControlName="cityAddress" placeholder="London" aria-label="London" required
+                           data-msg="Please enter a valid address."
                            data-error-class="u-has-error"
                            data-success-class="u-has-success">
                   </div>
@@ -523,70 +442,24 @@
             <div class="mb-7">
               <!-- Title -->
               <div class="mb-4">
-                <h2 class="h4">Payment method</h2>
+                <h2 class="h4">Payment </h2>
               </div>
               <!-- End Title -->
 
               <!-- Input -->
               <div class="js-form-message mb-6">
                 <label class="form-label" for="card-element">
-                  Card number
+                  Card Information
                 </label>
                 <div id="card-element">
                     <!-- A Stripe Element will be inserted here. -->
                   </div>
-                <input id="bank_account" type="text" class="form-control" formControlName="cardNumber" placeholder="**** **** **** ***" aria-label="**** **** **** ***" required
-                       data-msg="Please enter a valid card number."
-                       data-error-class="u-has-error"
-                       data-success-class="u-has-success">
+                
                        <small>Try it out using the test card number <b>4242 4242 4242 4242</b>, a random three-digit CVC number, any expiration date in the future, and a random five-digit U.S. ZIP code.</small>
               </div>
               <!-- End Input -->
 
-              <div class="row">
-                <div class="col-md-8">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Card holder
-                    </label>
-                    <input type="text" class="form-control" formControlName="cardHolder" placeholder="Jack Wayley" aria-label="Jack Wayley" required
-                           data-msg="Please enter a valid card holder."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="col-md-2">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      Expiration
-                    </label>
-                    <input type="text" class="form-control" name="cardExpirationDate" placeholder="MM/YY" aria-label="MM/YY" required
-                           data-msg="Please enter a valid date."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-
-                <div class="col-md-2">
-                  <!-- Input -->
-                  <div class="js-form-message mb-6">
-                    <label class="form-label">
-                      CVC
-                    </label>
-                    <input type="text" class="form-control" name="cardCVC" placeholder="***" aria-label="***" required
-                           data-msg="Please enter a valid CVC number."
-                           data-error-class="u-has-error"
-                           data-success-class="u-has-success">
-                  </div>
-                  <!-- End Input -->
-                </div>
-                
-              </div>
+              
 
               <!-- Button -->
               <div class="d-flex justify-content-between align-items-center">
