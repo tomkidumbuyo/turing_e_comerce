@@ -73,7 +73,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     this.elements = this.stripe.elements();
-    this.card = elements.create('card', {style: style});
+    this.card = this.elements.create('card', {style: {}});
 
     this.restApi.get('shipping/regions').subscribe((data) => {
       this.regions = data;
