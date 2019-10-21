@@ -50,7 +50,7 @@ export class CartService {
 
   addToCart( id, amount = 1 , attributes = "" ) {
 
-    alert('product added to cart');
+    
 
     let alreadyAdded = false;
     this.products.forEach((product) => {
@@ -61,6 +61,7 @@ export class CartService {
           quantity: amount,
         }).subscribe((data) => {
           this.products = data;
+          alert('product already added to cart');
         });
       }
     });
@@ -68,14 +69,17 @@ export class CartService {
       this.restApi.post('shoppingcart/add',{
         cart_id: this.cart_id,
         product_id: id,
-        attributes: attributes
+        attributes: attributes,
+        quantity: amount
       }).subscribe((data) => {
         data.amount = amount;
         this.products.push(data);
+        alert('product added to cart');
       });
     }
     localStorage.setItem('cart', JSON.stringify(this.products));
     console.log(this.products);
+    
     this.refreshTotal();
     this.subject.next({products: this.products, total: this.total});
 
