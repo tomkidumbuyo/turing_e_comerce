@@ -19,7 +19,6 @@ expressApp.use(bodyParser.urlencoded({ extended: true }));
 var distDir = __dirname + "/dist/";
 expressApp.use(express.static(distDir));
 
-
 //import route files
 customersRoutes    = require("./routes/customers");
 categoriesRoutes   = require("./routes/categories");
