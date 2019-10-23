@@ -49,7 +49,7 @@ expressApp.use('/api/stripe', stripeRoutes);
 
 //redirects to angular
 expressApp.use(function(req, res) {
-  res.sendfile(__dirname + '/public/index.html'); // will execute angular code
+  res.sendfile(__dirname + '/index.html'); // will execute angular code
 });
 
 //init the server
