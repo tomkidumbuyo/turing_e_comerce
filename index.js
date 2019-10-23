@@ -1,6 +1,7 @@
-const port = 7200;
+const port = process.env.SERVER_PORT || 8080;
 const express = require('express');
 const expressApp = express();
+require('dotenv').config();
 
 const cors = require('cors');
 expressApp.use(cors({
@@ -13,6 +14,10 @@ const db = require("./models");
 
 const bodyParser = require('body-parser');
 expressApp.use(bodyParser.urlencoded({ extended: true }));
+
+// Create link to Angular build directory
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
 
 
 //import route files

@@ -1,9 +1,10 @@
 {
   "development": {
-    "username": "bcfda366bf9a44",
-    "password": "4eee598c",
-    "database": "heroku_73b6aa62d6c97fd",
-    "host": "us-cdbr-iron-east-05.cleardb.net",
+    "username": "root",
+    "password": "root",
+    "database": "ecommerce",
+    "host": "127.0.0.1",
+    "port": 8889,
     "dialect": "mysql",
     "operatorsAliases": false
   },
