@@ -48,9 +48,12 @@ expressApp.use('/api/tax', taxRoutes);
 expressApp.use('/api/shipping', shippingRoutes);
 expressApp.use('/api/stripe', stripeRoutes);
 
+//redirects to angular
+app.use(function(req, res) {
+  res.sendfile(__dirname + '/public/index.html'); // will execute angular code
+});
+
 //init the server
-
-
 db.sequelize.sync().then(() => {
   console.log('Database connection successfull');
   expressApp.listen(port, () => {
