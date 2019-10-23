@@ -48,7 +48,7 @@ expressApp.use('/api/shipping', shippingRoutes);
 expressApp.use('/api/stripe', stripeRoutes);
 
 //redirects to angular
-app.use(function(req, res) {
+expressApp.use(function(req, res) {
   res.sendfile(__dirname + '/public/index.html'); // will execute angular code
 });
 
