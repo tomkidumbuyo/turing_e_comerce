@@ -49,14 +49,15 @@ expressApp.use('/api/stripe', stripeRoutes);
 
 //redirects to angular
 expressApp.use(function(req, res) {
-  res.sendfile(__dirname + '/index.html'); // will execute angular code
+  console.log('\n\n\n REDIRECTING TO ANGULAR \n ' + __dirname + '/public/index.html \n\n\n');
+  res.sendFile(__dirname + '/dist/index.html'); // will execute angular code
 });
 
 //init the server
 db.sequelize.sync().then(() => {
   console.log('Database connection successfull');
   expressApp.listen(port, () => {
-    console.log(`listening on port ${port}`);
+    console.log('listening on port ' + port);
   });
 }).catch(err => {
   console.error('Unable to sync to the database:\n\n', err);
