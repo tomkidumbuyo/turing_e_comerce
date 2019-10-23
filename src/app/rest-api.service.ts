@@ -7,12 +7,12 @@ declare var $: any;
 
 @Injectable({
   providedIn: 'root'
-})
+});
 
 export class RestApiService {
 
   // Define API
-  apiURL = '/';
+  apiURL = '/api/';
 
   // Http Options
   httpOptions = {

@@ -34,19 +34,19 @@ shippingRoutes     = require("./routes/shipping");
 stripeRoutes       = require("./routes/stripe");
 
 //authentication routes
-expressApp.use('/customers', customersRoutes);
+expressApp.use('/api/customers', customersRoutes);
 
 //authentication routes
-expressApp.use('/categories', categoriesRoutes);
-expressApp.use('/departments', departmentsRoutes);
-expressApp.use('/attributes', attributesRoutes);
-expressApp.use('/products', productsRoutes);
-expressApp.use('/customer', customerRoutes);
-expressApp.use('/orders', ordersRoutes);
-expressApp.use('/shoppingcart', shoppingcartRoutes);
-expressApp.use('/tax', taxRoutes);
-expressApp.use('/shipping', shippingRoutes);
-expressApp.use('/stripe', stripeRoutes);
+expressApp.use('/api/categories', categoriesRoutes);
+expressApp.use('/api/departments', departmentsRoutes);
+expressApp.use('/api/attributes', attributesRoutes);
+expressApp.use('/api/products', productsRoutes);
+expressApp.use('/api/customer', customerRoutes);
+expressApp.use('/api/orders', ordersRoutes);
+expressApp.use('/api/shoppingcart', shoppingcartRoutes);
+expressApp.use('/api/tax', taxRoutes);
+expressApp.use('/api/shipping', shippingRoutes);
+expressApp.use('/api/stripe', stripeRoutes);
 
 //init the server
 
