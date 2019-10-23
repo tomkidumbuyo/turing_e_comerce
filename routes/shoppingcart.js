@@ -53,6 +53,9 @@ router.post('/add',(req, res) => {
             .then((items) => {
                 if(items.length > 0){
                     item = items[0]
+
+                    console.log("\n\n\n\n", item );
+                    
                     res.json({
                         "item_id": item.item_id,
                         "name": item.product.name,

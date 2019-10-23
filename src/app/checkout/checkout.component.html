@@ -18,7 +18,7 @@
               <div class="border-bottom pb-4 mb-4" *ngFor="let product of products">
                 <div class="media">
                   <div class="position-relative max-width-10 w-100 mr-3">
-                    <img class="img-fluid" src="../../assets/img/product_images/{{product.image}}" alt="Image Description">
+                    <img class="img-fluid" src="/assets/img/product_images/{{product.image}}" alt="Image Description">
                     <span class="badge badge-sm badge-primary badge-pos rounded-circle">{{product.quantity}}</span>
                   </div>
                   <div class="media-body">
@@ -54,8 +54,8 @@
                 <div class="card border-0 mb-3" *ngFor="let shipping of shippings ">
                   <div class="card-body p-0">
                     <div class="custom-control custom-radio d-flex align-items-center small">
-                      <input type="radio" class="custom-control-input" [(ngModel)]="shipingSelected" value="{{shipping.shipping_id}}" (change)="shippingChange(shipping)" checked>
-                      <label class="custom-control-label ml-1" for="deliveryRadio1">
+                      <input type="radio" id="a{{shipping.shipping_id}}" class="custom-control-input" [(ngModel)]="shipingSelected" value="{{shipping.shipping_id}}" (change)="shippingChange(shipping)" checked>
+                      <label class="custom-control-label ml-1" for="a{{shipping.shipping_id}}">
                         <span class="d-block font-size-1 font-weight-medium mb-1">{{shipping.shipping_cost}} - Standard delivery</span>
                         <span class="d-block text-muted">{{shipping.shipping_type}}</span>
                       </label>

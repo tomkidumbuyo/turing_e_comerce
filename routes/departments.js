@@ -21,8 +21,8 @@ router.get('/:department_id',(req, res) => {
         if(departments.length){
             res.json(departments[0]);
         }else{
-            res.status(500).json({message: "Error: No department found. "}); 
-        } 
+            res.status(500).json({message: "Error: No department found. "});
+        }
     })
     .catch(err => {
         res.status(500).json({message: "Error executing request. "+err});

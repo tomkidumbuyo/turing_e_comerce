@@ -49,7 +49,6 @@ expressApp.use('/api/stripe', stripeRoutes);
 
 //redirects to angular
 expressApp.use(function(req, res) {
-  console.log('\n\n\n REDIRECTING TO ANGULAR \n ' + __dirname + '/public/index.html \n\n\n');
   res.sendFile(__dirname + '/dist/index.html'); // will execute angular code
 });
 

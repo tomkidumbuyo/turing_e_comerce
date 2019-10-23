@@ -12,7 +12,7 @@ router.get('/',(req, res) => {
     });
 });
 
-router.get('inProduct/:product_id',(req, res) => {
+router.get('/inProduct/:product_id',(req, res) => {
     models.product_category.findAll({
         where:{product_id: req.params.product_id},
         include: [{model: models.category, as: "category"}]
@@ -26,17 +26,12 @@ router.get('inProduct/:product_id',(req, res) => {
     });
 });
 
-router.get('inDepartment/:department_id',(req, res) => {
+router.get('/inDepartment/:department_id',(req, res) => {
     models.category.findAll({
         where: {department_id: req.params.department_id},
-        limit: 1
     })
     .then((categories) => {
-        if(categories.length){
-            res.json(categories[0]);
-        }else{
-            res.status(500).json({message: "Error: No department found. "}); 
-        } 
+        res.json(categories);
     })
     .catch(err => {
         res.status(500).json({message: "Error executing request. "+err});

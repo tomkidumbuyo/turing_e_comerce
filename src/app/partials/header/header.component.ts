@@ -24,10 +24,7 @@ export class HeaderComponent implements OnInit {
   }
 
   search(form) {
-    console.log(form)
+    console.log(form);
   }
-
-
-  
 
 }
