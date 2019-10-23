@@ -12,7 +12,7 @@ declare var $: any;
 export class RestApiService {
 
   // Define API
-  apiURL = 'http://localhost:7200/';
+  apiURL = '/';
 
   // Http Options
   httpOptions = {
