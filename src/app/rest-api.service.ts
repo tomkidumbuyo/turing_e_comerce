@@ -7,7 +7,7 @@ declare var $: any;
 
 @Injectable({
   providedIn: 'root'
-});
+})
 
 export class RestApiService {
 
