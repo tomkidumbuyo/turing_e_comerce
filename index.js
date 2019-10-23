@@ -17,7 +17,7 @@ expressApp.use(bodyParser.urlencoded({ extended: true }));
 
 // Create link to Angular build directory
 var distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
+expressApp.use(express.static(distDir));
 
 
 //import route files
