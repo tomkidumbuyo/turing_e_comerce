@@ -125,6 +125,7 @@ export class CheckoutComponent implements OnInit {
             amount: (thisInstance.total + thisInstance.shipingSelectedPrice)
           }).subscribe((data) => {
             alert('purchase complete');
+            this.cart.emptyCart();
             this.router.navigate(['/']);
           });
         });

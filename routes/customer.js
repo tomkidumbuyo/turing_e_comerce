@@ -45,8 +45,6 @@ router.put('/',(req, res) => {
         updt.email = req.body.email;
     }
 
-    console.log("\n\n\n",req.customer);
-
     models.customer.update(
         updt, { where: { customer_id: req.customer.customer_id } }
     ).then(count => {

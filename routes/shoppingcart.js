@@ -28,6 +28,10 @@ router.post('/add',(req, res) => {
                 attributes: attributes,
                 quantity: quantity,
             });
+
+            console.log("\n\n\n\n\n item ",item);
+            item  = item.dataValues;
+
             res.json({
                 "item_id": item.item_id,
                 "name": item.product.name,
@@ -39,6 +43,7 @@ router.post('/add',(req, res) => {
                 "image_2": item.product.image_2,
                 "subtotal": (parseInt(item.quantity) * parseInt(item.product.price))
             });
+            
         }else{
             item = models.shopping_cart.create({
                 cart_id: cart_id,
