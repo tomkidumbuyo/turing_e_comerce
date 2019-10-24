@@ -40,9 +40,9 @@ export class CheckoutAuthComponent implements OnInit {
     console.warn('Your order has been submitted', this.loginForm);
     const customerData = this.loginForm.value;
     this.auth.login(customerData.email, customerData.password);
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/checkout']);
-    }
+    // if (this.auth.isLoggedIn()) {
+    this.router.navigate(['/checkout']);
+    // }
 
   }
 
@@ -51,9 +51,9 @@ export class CheckoutAuthComponent implements OnInit {
     console.warn('Your order has been submitted', this.registerForm);
     const customerData = this.registerForm.value;
     this.auth.register(customerData.email, customerData.password, customerData.name);
-    if (this.auth.isLoggedIn()) {
-      this.router.navigate(['/checkout']);
-    }
+    // if (this.auth.isLoggedIn()) {
+    this.router.navigate(['/checkout']);
+    // }
   }
 
 }

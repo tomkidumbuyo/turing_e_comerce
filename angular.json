@@ -28,7 +28,29 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              
+              "src/assets/vendor/jquery/dist/jquery.min.js",
+              "src/assets/vendor/jquery-migrate/dist/jquery-migrate.min.js",
+              "src/assets/vendor/popper.js/dist/umd/popper.min.js",
+              "src/assets/vendor/bootstrap/bootstrap.min.js",
+
+              "src/assets/vendor/hs-megamenu/src/hs.megamenu.js",
+              "src/assets/vendor/svg-injector/dist/svg-injector.min.js",
+              "src/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js",
+              "src/assets/vendor/jquery-validation/dist/jquery.validate.min.js",
+              "src/assets/vendor/slick-carousel/slick/slick.js",
+              "src/assets/vendor/jquery.countdown.min.js",
+
+              "src/assets/js/hs.core.js",
+              "src/assets/js/hs.header.js",
+              "src/assets/js/hs.unfold.js",
+              "src/assets/js/hs.focus-state.js",
+              "src/assets/js/hs.malihu-scrollbar.js",
+              "src/assets/js/hs.validation.js",
+              "src/assets/js/hs.show-animation.js",
+              "src/assets/js/hs.slick-carousel.js",
+              "src/assets/js/hs.countdown.js",
+              "src/assets/js/hs.svg-injector.js",
+              "src/assets/js/hs.go-to.js"
             ]
           },
           "configurations": {

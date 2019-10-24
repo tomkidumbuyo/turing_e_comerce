@@ -6,6 +6,7 @@ const models = require('../models');
 require('dotenv/config');
 
 function verify_token (req,res,next){
+  
   try {
     if(req.headers.authorization !== undefined){
 
@@ -13,15 +14,21 @@ function verify_token (req,res,next){
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const customer_id = decodedToken.user.customer_id;
 
+
       models.customer.findAll({
         where: {customer_id: customer_id },
         limit: 1
       })
       .then((customers) => {
-
-        res.customer = customers[0];
-        console.log(res.user);
-        next();
+        if (customers.length) {
+          console.log("\n authorization successfully for " + customers[0].dataValues.email);
+          req.customer = customers[0].dataValues;
+          next();
+        } else {
+          res.status(401).json({
+            error: new Error('authorization failed')
+          });
+        }
       });
       
     }else{
@@ -30,7 +37,7 @@ function verify_token (req,res,next){
   } catch (error) {
     console.log(error);
     res.status(401).json({
-      error: new Error('Invalid request!')
+      error: new Error('authorization failed')
     });
   }
 }

@@ -5,17 +5,24 @@ const router = express.Router();
 
 router.post('/charge', (req, res ) => {
 
-    const token = req.body.stripeToken; // Using Express
+    const token = req.body.stripeToken;
 
-    (async () => {
-    res.json( await stripe.charges.create({
-        amount: req.body.amount,
+    console.log("\n\n\n\n\n\ token",token);
+    
+    stripe.charges.create(
+    {
+        amount: parseInt(req.body.amount),
         currency: 'usd',
         description: req.body.description,
-        source: token,
-    }));
+        source: token.id,
+    },
+    function(err, charge) {
+        if (err) {
+            res.status(500).json({message: "Error creating charge." + err});
+        }
+        res.json(charge);
+    });
 
-    })();
 });
 
 router.post('/stripe/webhooks', (req, res ) => {

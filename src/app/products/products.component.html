@@ -92,8 +92,17 @@
 
         <!-- Filters -->
         <div class="col-lg-3">
-      
 
+            <div class="border-bottom pb-4 mb-4">
+                <h4 class="h6 mb-3">Search</h4>
+
+                <!-- Checkboxes -->
+                <div  class="form-group d-flex align-items-center justify-content-between font-size-1 text-lh-md text-secondary mb-1">
+                  <input class="form-control" type="search" [(ngModel)]="searchModel" placeholder="press enter to search" (change)="pagination(0)">
+                </div>
+                <!-- End Checkboxes -->
+
+              </div>
 
             <div class="border-bottom pb-4 mb-4">
               <h4 class="h6 mb-3">Department</h4>

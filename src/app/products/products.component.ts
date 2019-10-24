@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/rest-api.service';
 import { FormGroup } from '@angular/forms';
 import { CartService } from '../cart.service';
+import { FnParam } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +20,8 @@ export class ProductsComponent implements OnInit {
   product_count = 0;
   pages_array = [];
   form: FormGroup;
+
+  searchModel = '';
 
   departments: any[] = [];
   categories: any[] = [];
@@ -60,7 +63,7 @@ export class ProductsComponent implements OnInit {
           department.categories.forEach((category) => {
             this.restApi.get('products/inCategory/' + category.category_id).subscribe((products) => {
               category.products = products;
-              department.products.concat(products)
+              department.products.concat(products);
               this.filter();
             });
           });
@@ -79,10 +82,19 @@ export class ProductsComponent implements OnInit {
         });
       });
     });
-
   }
 
   pagination(page) {
+    if (this.searchModel && this.searchModel.length > 0 && this.searchModel !== '') {
+      let fp = [];
+      this.filtered_products.forEach((product) => {
+        if (product.name.toLowerCase().indexOf(this.searchModel.toLowerCase()) > -1) {
+          fp.push(product);
+        }
+      });
+      this.filtered_products = fp;
+    }
+
     this.pages = Math.ceil(this.filtered_products.length / this.limit);
     this.pages_array = Array.from(Array(this.pages).keys());
     this.page = page;
@@ -100,24 +112,20 @@ export class ProductsComponent implements OnInit {
     this.filtered_products = []
 
     this.departments.forEach((department) => {
-      
       if (department.selected) {
         isFiltered = true;
         department.categories.forEach((category) => {
           this.filtered_products = this.filtered_products.concat(category.products);
         });
-        console.log(this.filtered_products )
       }
     });
 
     this.categories.forEach((category) => {
       if (category.selected) {
         isFiltered = true;
-        
-        this.filtered_products = this.filtered_products.concat(category.products);
-        console.log(this.filtered_products )
-      }
+        this.filtered_products = this.filtered_products.concat(category.products);      }
     });
+
 
     if (isFiltered) {
       this.pagination(0);
@@ -129,9 +137,9 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  check(item){
+  check(item) {
     item.selected = item.selected ? false : true ;
-    this.filter()
+    this.filter();
   }
 
   clearFilters() {
@@ -141,6 +149,7 @@ export class ProductsComponent implements OnInit {
     this.departments.forEach((department) => {
       department.selected = false;
     });
+    this.searchModel = "";
     this.filter();
   }
 }

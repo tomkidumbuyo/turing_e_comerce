@@ -23,7 +23,7 @@ router.post('/',(req, res) => {
     order = models.orders.create({
         total_amount: total,
         status: 1,
-        customer_id: res.customer.customer_id,
+        customer_id: req.customer.customer_id,
         shipping_id: shipping_id,
         tax_id: tax_id
     });

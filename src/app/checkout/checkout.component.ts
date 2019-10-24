@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit {
       postcode: new FormControl(),
       streetAddress: new FormControl(),
       cityAddress: new FormControl(),
-      cardNumber: new FormControl(),
+      region: new FormControl(),
       suite: new FormControl(),
       country: new FormControl(),
       phone: new FormControl(),
@@ -104,32 +104,31 @@ export class CheckoutComponent implements OnInit {
       currency: 'usd',
       account_holder_name: 'Jenny Rosen',
       account_holder_type: 'individual',
-    }).then(function(result) {
+    }).then((result) => {
 
-      console.log(thisInstance);
-      console.log(result);
 
-      thisInstance.restApi.postAuth('orders', {
-        cart_id: thisInstance.cart.cartId,
-        shipping_id: thisInstance.shipingSelected,
-        tax_id: 2
-      }).subscribe((order) => {
-
-        console.log(order);
-        console.log('hehe2323232323232');
-
-        thisInstance.restApi.post('stripe/charge', {
-          stripeToken: result.token,
-          order_id: order.order_id,
-          description: 'turing ecommerce chages',
-          amount: (thisInstance.total + thisInstance.shipingSelectedPrice)
-        }).subscribe((data) => {
-          console.log(order);
-
+      thisInstance.restApi.putAuth('customer', {
+        country: thisInstance.checkoutForm.value.country,
+        shipping_region_id: thisInstance.checkoutForm.value.shipping_region,
+        region: thisInstance.checkoutForm.value.region,
+        adress: thisInstance.checkoutForm.value.streetAddress
+      }).subscribe((customer) => {
+        thisInstance.restApi.postAuth('orders', {
+          cart_id: thisInstance.cart.cartId,
+          shipping_id: thisInstance.shipingSelected,
+          adress: thisInstance.checkoutForm.value.streetAddress
+        }).subscribe((order) => {
+          thisInstance.restApi.post('stripe/charge', {
+            stripeToken: result.token,
+            order_id: order.order_id,
+            description: 'turing ecommerce chages',
+            amount: (thisInstance.total + thisInstance.shipingSelectedPrice)
+          }).subscribe((data) => {
+            alert('purchase complete');
+            this.router.navigate(['/']);
+          });
         });
-
       });
-
     });
   }
 
