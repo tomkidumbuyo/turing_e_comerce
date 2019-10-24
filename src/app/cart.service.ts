@@ -105,11 +105,12 @@ export class CartService {
   refreshTotal() {
     this.total = 0;
     this.products.forEach((product) => {
+      console.log('product', product);
       this.total = this.total + (parseFloat(product.price) * parseFloat(product.quantity));
       console.log('multiply', parseFloat(product.price) * parseFloat(product.quantity));
       console.log('total', this.total);
     });
-    this.total = Math.round(this.total * 100) / 100
+    this.total = Math.round(this.total * 100) / 100;
   }
 
   saveOrder(shippingId: number, callback) {
